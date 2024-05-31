@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+	// Change Page
 	const app = document.getElementById('app');
 	const index = document.getElementById('index');
 	if (!app || !index) {
-		console.error('No app or element found.');
-		return;
+		return console.error('No app or element found.');
 	}
 	const loadTemplate = async (url) => {
 		try {
@@ -23,5 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		loadTemplate('/index/');
 	});
 	loadTemplate('/index/');
+
+	// Signup
+	const signupForm = document.getElementById('signupForm');
+	signupForm.addEventListener('submit', async (event) => {
+		event.preventDefault();
+	});
 
 });
