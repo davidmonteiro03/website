@@ -1,0 +1,35 @@
+@font-face {
+	font-family: 'mainFont';
+	src: url('../fonts/Ubuntu_Mono/UbuntuMono-Regular.ttf');
+}
+
+body {
+	background-color: #3f3f3f;
+	color: #fff;
+	font-family: 'mainFont';
+}
+
+a {
+	transition: 0.4s;
+}
+
+a:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}
+
+.ft_button {
+	font-size: 18px;
+}
+
+.ft_input {
+	font-size: 18px;
+}
+
+.ft_label {
+	font-size: 18px;
+}
+
+.ft_span {
+	font-size: 25px;
+}
