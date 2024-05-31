@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	const signupForm = document.getElementById('signupForm');
 	signupForm.addEventListener('submit', async (event) => {
 		event.preventDefault();
+		try {
+			const response = await fetch('/signup/', {
+				method: 'POST',
+			});
+			console.log(response);
+		}
 	});
 
 });
