@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'website',
+        'USER': 'root',
+        'PASSWORD': 'W38517e#42',
+        'HOST': 'localhost',   # Ou o endereço do seu servidor MariaDB
+        'PORT': '3306',        # Porta padrão do MariaDB
     }
 }
 

@@ -31,12 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	const signupForm = document.getElementById('signupForm');
 	signupForm.addEventListener('submit', async (event) => {
 		event.preventDefault();
-		localStorage.setItem('username', signupForm.username.value);
 		try {
+			const formData = new FormData(signupForm);
+			const data = {};
+			formData.forEach((value, key) => data[key] = value);
 			const response = await fetch('/auth/signup/', {
 				method: 'POST',
+				body: JSON.stringify(data),
 			});
-			console.log(response);
+			const json = await response.json();
+			console.log(json);
 		}
 		catch (error) {
 			console.error("Error:", error);
