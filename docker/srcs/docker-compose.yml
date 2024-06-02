@@ -18,6 +18,4 @@ services:
       - 8000:8000
     networks:
       - webnet
-    env_file:
-      - .env
     restart: unless-stopped
