@@ -3,32 +3,21 @@ networks:
     driver: bridge
 
 volumes:
-  mariadb_data:
+  postgres:
     driver: local
     driver_opts:
       type: none
-      device: "./data/mariadb"
+      device: "./data/postgres"
       o: bind
 
 services:
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
-    image: mariadb:42
-    env_file:
-      - .env
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - network
-    restart: unless-stopped
   website:
     container_name: website
     build: ./requirements/website
     ports:
       - 8000:8000
-    env_file:
-      - .env
     networks:
       - webnet
+    env_file:
+      - .env
     restart: unless-stopped

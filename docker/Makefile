@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/02 10:06:45 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/02 16:07:20 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ down:
 
 clean: down
 	-@docker volume ls -q | xargs -r docker volume rm -f 2>&1
-
 
 fclean: clean
 	-@docker images -qa | xargs -r docker rmi 2>&1
