@@ -1,31 +1,25 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/02 10:06:45 by dcaetano         ###   ########.fr        #
+#    Created: 2024/03/21 18:50:59 by dcaetano          #+#    #+#              #
+#    Updated: 2024/03/23 15:30:58 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all: up
+FROM debian:bullseye
 
-up:
-	@docker-compose -f ./srcs/docker-compose.yml up --build -d
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y mariadb-server
 
-down:
-	@docker-compose -f ./srcs/docker-compose.yml down
+RUN mkdir -p /var/run/mysqld &&\
+	chown -R mysql:mysql /var/run/mysqld &&\
+	chown -R mysql:mysql /var/lib/mysql
+RUN rm -f /etc/mysql/my.cnf
+COPY ./tools/entrypoint.sh /tmp/entrypoint.sh
+RUN chmod +x /tmp/entrypoint.sh
 
-clean: down
-	-@docker volume ls -q | xargs -r docker volume rm -f 2>&1
-
-
-fclean: clean
-	-@docker images -qa | xargs -r docker rmi 2>&1
-	@docker system prune -af
-
-re: clean up
-
-.PHONY: all up down clean fclean re
+ENTRYPOINT ["sh", "/tmp/entrypoint.sh"]
