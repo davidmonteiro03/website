@@ -1,0 +1,13 @@
+networks:
+  webnet:
+    name: webnet
+
+services:
+  website:
+    container_name: website
+    build: ./requirements/website
+    ports:
+      - "8000:8000"
+    networks:
+      - webnet
+    restart: unless-stopped
