@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/02 08:51:40 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/02 09:29:04 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ clean: down
 fclean: clean
 	-@docker images -qa | xargs -r docker rmi 2>&1
 	@docker system prune -af
-	@rm -rf ./src/data
 
 re: clean up
 
