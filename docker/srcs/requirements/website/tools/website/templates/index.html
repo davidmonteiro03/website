@@ -1,1 +1,9 @@
-<div class="container">INDEX</div>
+<div class="container">
+	{% if user_data %}
+	Welcome, {{ user_data.fname }} {{ user_data.lname }}!<br>
+	username: {{ user_data.username }}<br>
+	email: {{ user_data.email }}<br>
+	{% else %}
+	Sorry, you are not logged in.
+	{% endif %}
+</div>

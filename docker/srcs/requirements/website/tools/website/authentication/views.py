@@ -23,14 +23,14 @@ def signup(request):
 			results.append(parse.password(data[key]))
 	for result in results:
 		if result == None:
-			return JsonResponse({'error': 'Invalid data'})
+			return JsonResponse(None, safe=False, status=400)
 	Users.objects.all().delete()
 	users = Users.objects.all()
 	for user in users:
 		if user.username == data['username']:
-			return JsonResponse({'error': 'Username already exists'})
+			return JsonResponse(None, safe=False, status=400)
 		if user.email == data['email']:
-			return JsonResponse({'error': 'Email already exists'})
+			return JsonResponse(None, safe=False, status=400)
 	Users.objects.create(
 		fname=parse.name(data['fname']),
 		lname=parse.name(data['lname']),
@@ -38,4 +38,32 @@ def signup(request):
 		email=parse.email(data['email']),
 		password=parse.password(data['password'])
 	)
-	return JsonResponse({'success': 'User created'})
+	return_data = {
+		'fname': parse.name(data['fname']),
+		'lname': parse.name(data['lname']),
+		'username': parse.username(data['username']),
+		'email': parse.email(data['email'])
+	}
+	return JsonResponse(return_data)
+
+@csrf_exempt
+def update(request):
+	if (request.method != 'POST'):
+		return redirect('/')
+	if not request.body or request.body == b'{}':
+		return JsonResponse(None, safe=False, status=400)
+	print(request.body)
+	data = json.loads(request.body)
+	user = Users.objects.filter(username=data['username']).first()
+	if user:
+		user.fname = data['fname']
+		user.lname = data['lname']
+		user.save()
+		return_data = {
+			'fname': user.fname,
+			'lname': user.lname,
+			'username': user.username,
+			'email': user.email
+		}
+		return JsonResponse(return_data)
+	return JsonResponse(None, safe=False, status=404)

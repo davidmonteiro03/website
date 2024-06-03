@@ -1,1 +1,9 @@
-Profile Page
+<form class="form mt-3 mx-3" onsubmit="updateData(event)">
+	<label for="fname" class="ft_label">First Name</label>
+	<input id="fname" name="fname" type="text" class="form-control mt-2 ft_input" placeholder="type your first name"
+		value="{{ user_data.fname }}" autocomplete="off" required>
+	<label for="lname" class="ft_label">Last Name</label>
+	<input id="lname" name="lname" type="text" class="form-control mt-2 ft_input" placeholder="type your first name"
+		value="{{ user_data.lname }}" autocomplete="off" required>
+	<input type="submit" class="btn btn-success mt-3 flex-grow-1 ft_input" value="Save Changes">
+</form>

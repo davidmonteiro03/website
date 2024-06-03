@@ -2,13 +2,18 @@ let navbar = null;
 let modal = null;
 let indexPage = null;
 let profilePage = null;
+let sessionData = null;
 
 document.addEventListener('DOMContentLoaded', function () {
-	localStorage.clear();
-	navbar = new ContentLoader('navbar', '/navbar/');
-	modal = new ContentLoader('modal', '/modal/');
-	indexPage = new ContentLoader('app', '/index/');
-	profilePage = new ContentLoader('app', '/profilepage/');
+	// localStorage.clear();
+
+	if (localStorage.getItem('user_data'))
+		sessionData = { 'user_data': JSON.parse(localStorage.getItem('user_data')) };
+
+	navbar = new ContentLoader('navbar', '/navbar/', sessionData);
+	modal = new ContentLoader('modal', '/modal/', sessionData);
+	indexPage = new ContentLoader('app', '/index/', sessionData);
+	profilePage = new ContentLoader('app', '/profilepage/', sessionData);
 
 	const pages = {
 		'/index/': indexPage,
@@ -42,11 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			page.loadContent();
 		}
 		else {
-			if (localStorage.getItem('ft_token') === null)
-				history.replaceState({ url: '/index/' }, '', '/index/');
-			else
-				history.replaceState({ url: '/profilepage/' }, '', '/profilepage/');
-			const page = localStorage.getItem('ft_token') === null ? indexPage : profilePage;
+			history.replaceState({ url: '/index/' }, '', '/index/');
+			const page = indexPage;
 			if (!page)
 				return;
 			page.loadContent();
@@ -68,19 +70,53 @@ document.addEventListener('DOMContentLoaded', function () {
 			body: JSON.stringify(data)
 		};
 		const response = await fetch('/auth/signup/', options);
-		if (!response.ok)
-			return;
-		const result = await response.json();
-		if (result['error']) {
-			// console.log(result['error']);
+		if (!response.ok) {
 			return;
 		}
-		localStorage.setItem('ft_token', result['token']);
 		$('.modal').modal('hide');
-		navbar.updateData({ 'ft_token': 'true' });
-		modal.updateData({ 'ft_token': 'true' });
+		const content = await response.json();
+		localStorage.setItem('user_data', JSON.stringify(content));
+		navbar.updateData({ 'user_data': content });
+		modal.updateData({ 'user_data': content });
 		navbar.loadContent();
 		modal.loadContent();
-		changePage(profilePage);
+		indexPage.updateData({ 'user_data': content });
+		changePage(indexPage);
 	}
+
+	window.signOut = async function (event) {
+		event.preventDefault();
+		const target = sessionData['user_data']['username'];
+		console.log(target);
+	}
+
+	window.updateData = async function (event) {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		const data = {};
+		for (const [key, value] of formData.entries()) {
+			data[key] = value;
+		}
+		data['username'] = sessionData['user_data']['username'];
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		};
+		const response = await fetch('/auth/update/', options);
+		if (!response.ok) {
+			return;
+		}
+		const content = await response.json();
+		localStorage.setItem('user_data', JSON.stringify(content));
+		navbar.updateData({ 'user_data': content });
+		modal.updateData({ 'user_data': content });
+		navbar.loadContent();
+		modal.loadContent();
+		currentPage.updateData({ 'user_data': content });
+		currentPage.loadContent();
+	}
+
 });

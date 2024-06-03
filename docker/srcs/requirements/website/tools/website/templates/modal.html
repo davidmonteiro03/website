@@ -1,4 +1,4 @@
-{% if not ft_token %}
+{% if not user_data %}
 <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog">
@@ -11,21 +11,23 @@
 			<div class="modal-body">
 				<form class="form" onsubmit="signUp(event)">
 					<label for="fname" class="ft_label">First Name</label>
-					<input id="fname" name="fname" type="text" class="form-control mb-2 ft_input"
+					<input id="fname" name="fname" type="text" class="form-control mt-1 ft_input"
 						placeholder="type your first name" autocomplete="off" required>
-					<label for="lname" class="ft_label">Last Name</label>
-					<input id="lname" name="lname" type="text" class="form-control mb-2 ft_input"
+					<label for="lname" class="ft_label mt-2">Last Name</label>
+					<input id="lname" name="lname" type="text" class="form-control mt-1 ft_input"
 						placeholder="type your last name" autocomplete="off" required>
-					<label for="username" class="ft_label">Username</label>
-					<input id="username" name="username" type="text" class="form-control mb-2 ft_input"
+					<label for="username" class="ft_label mt-2">Username</label>
+					<input id="username" name="username" type="text" class="form-control mt-1 ft_input"
 						placeholder="type your username" autocomplete="off" required>
-					<label for="email" class="ft_label">Email</label>
-					<input id="email" name="email" type="text" class="form-control mb-2 ft_input"
+					<label for="email" class="ft_label mt-2">Email</label>
+					<input id="email" name="email" type="text" class="form-control mt-1 ft_input"
 						placeholder="type your email" autocomplete="off" required>
-					<label for="password" class="ft_label">Password</label>
-					<input id="password" name="password" type="password" class="form-control mb-2 ft_input"
+					<label for="password" class="ft_label mt-2">Password</label>
+					<input id="password" name="password" type="password" class="form-control mt-1 ft_input"
 						placeholder="type your password" autocomplete="off" required>
-					<input type="submit" class="btn btn-primary mt-2 ft_input" value="Sign Up">
+					<div class="d-flex">
+						<input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign Up">
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">

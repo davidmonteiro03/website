@@ -11,11 +11,15 @@
 body {
 	background-color: #3f3f3f;
 	color: #fff;
-	font-family: 'mainFontSans';
+	font-family: 'mainFontMono';
 }
 
 a {
 	transition: 0.4s;
+}
+
+span {
+	font-size: 18px;
 }
 
 a:hover {
