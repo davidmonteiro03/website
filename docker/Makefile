@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/03 11:15:03 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/03 11:28:33 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,6 @@ clean: down
 fclean: clean
 	-@docker images -qa | xargs -r docker rmi 2>&1
 	@docker system prune -af
-	@find . -name "*__pycache__*" -exec rm -rf {} +
-	@rm -rf ./srcs/requirements/website/tools/website/db.sqlite3
-	@rm -rf ./srcs/requirements/website/tools/website/staticfiles
-	@rm -rf ./srcs/requirements/website/tools/website/authentication/migrations
 
 re: clean up
 
