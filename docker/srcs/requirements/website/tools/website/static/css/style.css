@@ -1,12 +1,17 @@
 @font-face {
-	font-family: 'mainFont';
-	src: url('../fonts/Ubuntu_Mono/UbuntuMono-Regular.ttf');
+	font-family: 'mainFontSans';
+	src: url('../fonts/bitstreamVeraSans/Vera.ttf');
+}
+
+@font-face {
+	font-family: 'mainFontMono';
+	src: url('../fonts/bitstreamVeraMono/VeraMono.ttf');
 }
 
 body {
 	background-color: #3f3f3f;
 	color: #fff;
-	font-family: 'mainFont';
+	font-family: 'mainFontSans';
 }
 
 a {
