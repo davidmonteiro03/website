@@ -3,20 +3,8 @@ let modal = null;
 let indexPage = null;
 let profilePage = null;
 
-function closeModals() {
-	const modals = document.getElementsByClassName('modal');
-	for (let i = 0; i < modals.length; i++) {
-		modals[i].classList.remove('show');
-		modals[i].setAttribute('aria-hidden', 'true');
-		modals[i].setAttribute('style', 'display: none');
-	}
-	const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
-	for (let i = 0; i < modalsBackdrops.length; i++) {
-		document.body.removeChild(modalsBackdrops[i]);
-	}
-}
-
 document.addEventListener('DOMContentLoaded', function () {
+	localStorage.clear();
 	navbar = new ContentLoader('navbar', '/navbar/');
 	modal = new ContentLoader('modal', '/modal/');
 	indexPage = new ContentLoader('app', '/index/');
@@ -36,10 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			return;
 		if (page.loadContent()) {
 			currentPage = page;
-			if (currentPage.url === '/')
-				history.pushState({ url: '/' }, '', '/');
-			else
-				history.pushState({ url: page.url }, '', page.url);
+			history.pushState({ url: page.url }, '', page.url);
 		}
 	}
 
@@ -57,8 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			page.loadContent();
 		}
 		else {
-			history.replaceState({ url: '/' }, '', '/');
-			const page = indexPage;
+			if (localStorage.getItem('ft_token') === null)
+				history.replaceState({ url: '/index/' }, '', '/index/');
+			else
+				history.replaceState({ url: '/profilepage/' }, '', '/profilepage/');
+			const page = localStorage.getItem('ft_token') === null ? indexPage : profilePage;
 			if (!page)
 				return;
 			page.loadContent();
@@ -87,9 +75,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			// console.log(result['error']);
 			return;
 		}
+		localStorage.setItem('ft_token', result['token']);
+		$('.modal').modal('hide');
 		navbar.updateData({ 'ft_token': 'true' });
+		modal.updateData({ 'ft_token': 'true' });
 		navbar.loadContent();
-		profilePage.loadContent();
-		closeModals();
+		modal.loadContent();
+		changePage(profilePage);
 	}
 });

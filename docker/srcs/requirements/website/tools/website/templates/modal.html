@@ -1,35 +1,37 @@
+{% if not ft_token %}
 <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel"
-aria-hidden="true">
-<div class="modal-dialog">
-	<div class="modal-content bg-medium">
-		<div class="modal-header">
-			<span class="modal-title ft_span" id="signupFormModalLabel">Sign Up</span>
-			<button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal"
-				aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<form class="form" onsubmit="signUp(event)">
-				<label for="fname" class="ft_label">First Name</label>
-				<input id="fname" name="fname" type="text" class="form-control mb-2 ft_input"
-					placeholder="type your first name" autocomplete="off" required>
-				<label for="lname" class="ft_label">Last Name</label>
-				<input id="lname" name="lname" type="text" class="form-control mb-2 ft_input"
-					placeholder="type your last name" autocomplete="off" required>
-				<label for="username" class="ft_label">Username</label>
-				<input id="username" name="username" type="text" class="form-control mb-2 ft_input"
-					placeholder="type your username" autocomplete="off" required>
-				<label for="email" class="ft_label">Email</label>
-				<input id="email" name="email" type="text" class="form-control mb-2 ft_input"
-					placeholder="type your email" autocomplete="off" required>
-				<label for="password" class="ft_label">Password</label>
-				<input id="password" name="password" type="password" class="form-control mb-2 ft_input"
-					placeholder="type your password" autocomplete="off" required>
-				<input type="submit" class="btn btn-primary mt-2 ft_input" value="Sign Up">
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-danger ft_button" data-bs-dismiss="modal">Close</button>
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content bg-medium">
+			<div class="modal-header">
+				<span class="modal-title ft_span" id="signupFormModalLabel">Sign Up</span>
+				<button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form class="form" onsubmit="signUp(event)">
+					<label for="fname" class="ft_label">First Name</label>
+					<input id="fname" name="fname" type="text" class="form-control mb-2 ft_input"
+						placeholder="type your first name" autocomplete="off" required>
+					<label for="lname" class="ft_label">Last Name</label>
+					<input id="lname" name="lname" type="text" class="form-control mb-2 ft_input"
+						placeholder="type your last name" autocomplete="off" required>
+					<label for="username" class="ft_label">Username</label>
+					<input id="username" name="username" type="text" class="form-control mb-2 ft_input"
+						placeholder="type your username" autocomplete="off" required>
+					<label for="email" class="ft_label">Email</label>
+					<input id="email" name="email" type="text" class="form-control mb-2 ft_input"
+						placeholder="type your email" autocomplete="off" required>
+					<label for="password" class="ft_label">Password</label>
+					<input id="password" name="password" type="password" class="form-control mb-2 ft_input"
+						placeholder="type your password" autocomplete="off" required>
+					<input type="submit" class="btn btn-primary mt-2 ft_input" value="Sign Up">
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger ft_button" data-bs-dismiss="modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
-</div>
+{% endif %}

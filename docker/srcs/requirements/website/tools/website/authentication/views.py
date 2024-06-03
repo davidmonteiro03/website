@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import json
 from .models import Users
 from django.views.decorators.csrf import csrf_exempt
-import parse
+from . import parse
 
 # Create your views here
 @csrf_exempt
@@ -24,7 +24,7 @@ def signup(request):
 	for result in results:
 		if result == None:
 			return JsonResponse({'error': 'Invalid data'})
-	# Users.objects.all().delete()
+	Users.objects.all().delete()
 	users = Users.objects.all()
 	for user in users:
 		if user.username == data['username']:
