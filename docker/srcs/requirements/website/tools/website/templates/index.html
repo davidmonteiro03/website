@@ -1,9 +1,13 @@
-<div class="container">
+<h1>
 	{% if user_data %}
-	Welcome, {{ user_data.fname }} {{ user_data.lname }}!<br>
-	username: {{ user_data.username }}<br>
-	email: {{ user_data.email }}<br>
+		Welcome, {{ user_data.fname }} {{ user_data.lname }}!
 	{% else %}
-	Sorry, you are not logged in.
+		Welcome to the website!
 	{% endif %}
-</div>
+</h1>
+{% if user_data %}
+username: {{ user_data.username }}<br>
+email: {{ user_data.email }}
+{% else %}
+	Sorry, you are not logged in.
+{% endif %}

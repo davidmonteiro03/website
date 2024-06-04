@@ -5,6 +5,26 @@ class ContentLoader {
 		this.data = data;
 	}
 
+	rewriteData(data) {
+		this.data = data;
+	}
+
+	updateData(data) {
+		if (!data) {
+			return;
+		}
+		let currentData = this.data;
+		if (currentData) {
+			for (const key in data) {
+				currentData[key] = data[key];
+			}
+		}
+		else {
+			currentData = data;
+		}
+		this.data = currentData;
+	}
+
 	async loadContent() {
 		this.component = document.getElementById(this.component_id);
 		if (!this.component) {
@@ -30,21 +50,5 @@ class ContentLoader {
 		const content = await response.json();
 		// console.log(content.html);
 		this.component.innerHTML = content.html;
-	}
-
-	updateData(data) {
-		if (!data) {
-			return;
-		}
-		let currentData = this.data;
-		if (currentData) {
-			for (const key in data) {
-				currentData[key] = data[key];
-			}
-		}
-		else {
-			currentData = data;
-		}
-		this.data = currentData;
 	}
 }

@@ -4,9 +4,10 @@ import json
 from .models import Users
 from django.views.decorators.csrf import csrf_exempt
 from . import parse
+from django.db import connection
+from django.db.models import Q
 
 # Create your views here
-@csrf_exempt
 def signup(request):
 	if (request.method != 'POST'):
 		return redirect('/')
@@ -24,13 +25,17 @@ def signup(request):
 	for result in results:
 		if result == None:
 			return JsonResponse(None, safe=False, status=400)
-	Users.objects.all().delete()
-	users = Users.objects.all()
-	for user in users:
-		if user.username == data['username']:
-			return JsonResponse(None, safe=False, status=400)
-		if user.email == data['email']:
-			return JsonResponse(None, safe=False, status=400)
+	target = Users.objects.filter(
+		Q(username=data['username']) | Q(email=data['email'])
+	).first()
+	if target:
+		return JsonResponse(None, safe=False, status=400)
+	return_data = {
+		'fname': parse.name(data['fname']),
+		'lname': parse.name(data['lname']),
+		'username': parse.username(data['username']),
+		'email': parse.email(data['email'])
+	}
 	Users.objects.create(
 		fname=parse.name(data['fname']),
 		lname=parse.name(data['lname']),
@@ -38,32 +43,38 @@ def signup(request):
 		email=parse.email(data['email']),
 		password=parse.password(data['password'])
 	)
-	return_data = {
-		'fname': parse.name(data['fname']),
-		'lname': parse.name(data['lname']),
-		'username': parse.username(data['username']),
-		'email': parse.email(data['email'])
-	}
 	return JsonResponse(return_data)
 
-@csrf_exempt
 def update(request):
 	if (request.method != 'POST'):
 		return redirect('/')
 	if not request.body or request.body == b'{}':
 		return JsonResponse(None, safe=False, status=400)
-	print(request.body)
-	data = json.loads(request.body)
-	user = Users.objects.filter(username=data['username']).first()
-	if user:
-		user.fname = data['fname']
-		user.lname = data['lname']
-		user.save()
-		return_data = {
-			'fname': user.fname,
-			'lname': user.lname,
-			'username': user.username,
-			'email': user.email
-		}
-		return JsonResponse(return_data)
-	return JsonResponse(None, safe=False, status=404)
+	in_data = json.loads(request.body)
+	target = Users.objects.filter(
+		username=in_data['user_data']['username'],
+		email=in_data['user_data']['email']
+	).first()
+	if not target:
+		return JsonResponse(None, safe=False, status=400)
+	values = {
+		'fname': parse.name(in_data['new_data']['fname']),
+		'lname': parse.name(in_data['new_data']['lname']),
+		'username': parse.username(in_data['new_data']['username']),
+		'email': parse.email(in_data['new_data']['email']),
+	}
+	target = Users.objects.filter(
+		username=in_data['user_data']['username'],
+		email=in_data['user_data']['email']
+	).first()
+	for key in in_data['new_data']:
+		if values[key] and values[key] != target.__dict__[key]:
+			target.__dict__[key] = values[key]
+	target.save()
+	out_data = {
+		'fname': target.fname,
+		'lname': target.lname,
+		'username': target.username,
+		'email': target.email
+	}
+	return JsonResponse(out_data)
