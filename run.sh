@@ -1,19 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    setup.sh                                           :+:      :+:    :+:    #
+#    run.sh                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/05 13:38:01 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/05 13:44:45 by dcaetano         ###   ########.fr        #
+#    Created: 2024/06/05 13:41:41 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 13:48:14 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
-cd ../docker/srcs/requirements/website/tools/website
-python3 manage.py makemigrations authentication
-python3 manage.py migrate
-python3 manage.py collectstatic --noinput
-cd ../../../../../../..
+cd ./docker/srcs/requirements/website/tools/website
+python3 manage.py runserver 0.0.0.0:5000
+cd ../../../../../..
