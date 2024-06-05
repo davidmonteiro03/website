@@ -1,4 +1,4 @@
 # Website
 
 ## Run
-- cd debug && ./setup.sh && clear && ./run.sh
+- ./setup.sh && clear && ./run.sh
