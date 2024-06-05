@@ -1,19 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    entrypoint.sh                                      :+:      :+:    :+:    #
+#    run.sh                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/02 08:42:25 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/05 13:42:15 by dcaetano         ###   ########.fr        #
+#    Created: 2024/06/05 13:41:41 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 13:42:05 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
-cd /website
-python3 manage.py makemigrations authentication
-python3 manage.py migrate
-python3 manage.py collectstatic --noinput
+cd ./docker/srcs/requirements/website/tools/website
 python3 manage.py runserver 0.0.0.0:5000
+cd ../../../../../..

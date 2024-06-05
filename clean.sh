@@ -1,19 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    entrypoint.sh                                      :+:      :+:    :+:    #
+#    clean.sh                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/02 08:42:25 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/05 13:42:15 by dcaetano         ###   ########.fr        #
+#    Created: 2024/06/05 13:39:02 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 13:40:04 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
-cd /website
-python3 manage.py makemigrations authentication
-python3 manage.py migrate
-python3 manage.py collectstatic --noinput
-python3 manage.py runserver 0.0.0.0:5000
+cd ./docker/srcs/requirements/website/tools/website
+rm -rf ./*.sqlite3 ./authentication/migrations/ ./staticfiles/
+find . -name "__pycache__" -type d -exec rm -rf {} +
+cd ../../../../../..
