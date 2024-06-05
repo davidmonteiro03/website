@@ -9,6 +9,7 @@ from django.db.models import Q
 
 # Create your views here
 def signup(request):
+	Users.objects.all().delete()
 	if (request.method != 'POST'):
 		return redirect('/')
 	data = json.loads(request.body)

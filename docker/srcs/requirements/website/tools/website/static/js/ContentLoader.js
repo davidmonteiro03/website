@@ -31,16 +31,22 @@ class ContentLoader {
 			// console.error('Component not found');
 			return false;
 		}
+		if (document.cookie === '') {
+			return false;
+		}
+		const csrftoken = document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1];
 		const options = this.data ? {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrftoken
 			},
 			body: JSON.stringify(this.data)
 		} : {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrftoken
 			}
 		};
 		const response = await fetch(this.url, options);

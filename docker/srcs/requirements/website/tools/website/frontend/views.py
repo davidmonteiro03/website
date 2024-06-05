@@ -19,19 +19,15 @@ def change_page(request, page):
 def body(request):
 	return render(request, 'body.html')
 
-@csrf_exempt
 def navbar(request):
 	return change_page(request, 'navbar')
 
-@csrf_exempt
 def modal(request):
 	return change_page(request, 'modal')
 
-@csrf_exempt
 def index(request):
 	return change_page(request, 'index')
 
-@csrf_exempt
 def profilepage(request):
 	return change_page(request, 'profilepage')
 

@@ -1,14 +1,12 @@
-{%extends 'head.html'%}
+{% extends 'head.html' %}
 
-{%block content%}
+{% block content %}
+  {% csrf_token %}
 
-{% csrf_token %}
-
-<body>
-	<div id="navbar"></div>
-	<div id="app"></div>
-	<div id="modal"></div>
-	<div id="footer"></div>
-</body>
-
+  <body>
+    <div id="navbar"></div>
+    <div id="app"></div>
+    <div id="modal"></div>
+    <div id="footer"></div>
+  </body>
 {% endblock %}

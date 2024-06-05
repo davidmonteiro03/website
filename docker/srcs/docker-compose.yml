@@ -1,18 +1,12 @@
 networks:
   webnet:
+    name: webnet
     driver: bridge
-
-volumes:
-  postgres:
-    driver: local
-    driver_opts:
-      type: none
-      device: "./data/postgres"
-      o: bind
 
 services:
   website:
     container_name: website
+    image: website
     build: ./requirements/website
     ports:
       - 8000:8000
