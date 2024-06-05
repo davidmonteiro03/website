@@ -6,8 +6,9 @@
   {% endif %}
 </h1>
 {% if user_data %}
-  username: {{ user_data.username }}<br />
-  email: {{ user_data.email }}
+  {% for key, value in user_data.items %}
+    <p>{{ key }}-&gt;{{ value }}</p>
+  {% endfor %}
 {% else %}
   Sorry, you are not logged in.
 {% endif %}
