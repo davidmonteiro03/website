@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    parse.py                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/05 12:41:30 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 12:41:33 by dcaetano         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 from django.contrib.auth.hashers import make_password
 from .models import Users
 

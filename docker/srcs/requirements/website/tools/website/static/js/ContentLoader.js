@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ContentLoader.js                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 12:40:20 by dcaetano          #+#    #+#             */
+/*   Updated: 2024/06/05 12:40:49 by dcaetano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 class ContentLoader {
 	constructor(component_id, url, data = null) {
 		this.component_id = component_id;

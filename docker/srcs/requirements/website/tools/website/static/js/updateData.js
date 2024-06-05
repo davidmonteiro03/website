@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   updateData.js                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 12:41:18 by dcaetano          #+#    #+#             */
+/*   Updated: 2024/06/05 12:41:19 by dcaetano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 async function updateData(event) {
 	event.preventDefault();
 	const formData = new FormData(event.target);

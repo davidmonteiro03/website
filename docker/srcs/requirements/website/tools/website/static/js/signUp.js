@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signUp.js                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/05 12:40:59 by dcaetano          #+#    #+#             */
+/*   Updated: 2024/06/05 12:41:01 by dcaetano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 async function signUp(event) {
 	event.preventDefault();
 	const formData = new FormData(event.target);
