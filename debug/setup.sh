@@ -1,18 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    clean.sh                                           :+:      :+:    :+:    #
+#    setup.sh                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/05 13:39:02 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/05 13:40:04 by dcaetano         ###   ########.fr        #
+#    Created: 2024/06/05 13:38:01 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 13:44:45 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
-cd ./docker/srcs/requirements/website/tools/website
-rm -rf ./*.sqlite3 ./authentication/migrations/ ./staticfiles/
-find . -name "__pycache__" -type d -exec rm -rf {} +
-cd ../../../../../..
+cd ../docker/srcs/requirements/website/tools/website
+python3 manage.py makemigrations authentication
+python3 manage.py migrate
+python3 manage.py collectstatic --noinput
+cd ../../../../../../..
