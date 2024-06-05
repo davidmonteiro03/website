@@ -1,19 +1,24 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    entrypoint.sh                                      :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/02 08:42:25 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/05 12:37:51 by dcaetano         ###   ########.fr        #
+#    Created: 2024/06/05 13:16:05 by dcaetano          #+#    #+#              #
+#    Updated: 2024/06/05 13:30:03 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#!/bin/sh
+all: setup run
 
-cd /website
-python3 manage.py makemigrations authentication
-python3 manage.py migrate
-python3 manage.py collectstatic --noinput
-python3 manage.py runserver 0.0.0.0:8000
+setup:
+	@cd tools && sh ./setup.sh && cd ..
+
+clean:
+	@cd tools && sh ./clean.sh && cd ..
+
+run:
+	@cd tools && sh ./run.sh && cd ..
+
+re: clean all
