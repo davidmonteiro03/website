@@ -14,6 +14,9 @@ async function loadElement(element, type, file, data = null) {
 			'data': data
 		})
 	});
+	if (!response.ok) {
+		return;
+	}
 	const content = await response.json();
 	element.innerHTML = content.html;
 }

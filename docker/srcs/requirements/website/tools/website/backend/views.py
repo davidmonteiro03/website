@@ -3,17 +3,20 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 import json
 from . import parse
+from .models import Users
+from django.db.models import Q
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 @require_POST
 def signup(request):
+	Users.objects.all().delete()
 	if (request.body == None or request.body == b''):
 		return JsonResponse(None, safe=False, status=400)
 	body = json.loads(request.body)
 	fields = ['fname', 'lname', 'username', 'email', 'password']
-	for key in body:
-		if key not in fields:
-			return JsonResponse(None, safe=False, status=400)
+	if set(fields) != set(body.keys()):
+		return JsonResponse(None, safe=False, status=400)
 	parsing = {
 		'fname': parse.name(body['fname']),
 		'lname': parse.name(body['lname']),
@@ -21,7 +24,18 @@ def signup(request):
 		'email': parse.email(body['email']),
 		'password': parse.password(body['password']),
 	}
-	if None in parsing.values():
+	target = Users.objects.filter(
+		Q(username=parsing['username']) | Q(email=parsing['email'])
+	).first()
+	if target is not None or None in parsing.values():
 		return JsonResponse(None, safe=False, status=401)
-	print(parsing)
-	return JsonResponse(None, safe=False)
+	user = Users.objects.create(
+		fname=parsing['fname'],
+		lname=parsing['lname'],
+		username=parsing['username'],
+		email=parsing['email'],
+		password=parsing['password'],
+	)
+	user.token = RefreshToken.for_user(user)
+	user.save()
+	return JsonResponse({'token': str(user.token)})
