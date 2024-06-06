@@ -1,35 +1,26 @@
+from django.shortcuts import render
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
 from django.template import loader
-from django.views.decorators.csrf import csrf_exempt
 import json
+# from . import parse
 
 # Create your views here.
-
-def change_page(request, page):
-	if (request.method != 'POST'):
-		return redirect(body)
-	html = {'html': loader.render_to_string(f'{page}.html')}
-	if request.body == None or request.body == b'':
-		return JsonResponse(html)
-	data = json.loads(request.body)
-	html = {'html': loader.render_to_string(f'{page}.html', data)}
+def main(request):
+	if request.method != 'POST':
+		return render(request, 'main.html')
+	if (request.body == None or request.body == b''):
+		return JsonResponse({'error': 'Empty body'})
+	body = json.loads(request.body)
+	if 'type' not in body.keys():
+		return JsonResponse({'error': 'No type'})
+	valid_types = ['navbar', 'app', 'modal', 'footer']
+	if body['type'] not in valid_types:
+		return JsonResponse({'error': 'Invalid type'})
+	if not body['file']:
+		return JsonResponse({'error': 'No file'})
+	data = body['data'] if 'data' in body.keys() else {}
+	# print(data['file'])
+	html = {'html': loader.render_to_string(body["file"], data)}
+	# print(data)
+	# print(html)
 	return JsonResponse(html)
-
-def body(request):
-	return render(request, 'body.html')
-
-def navbar(request):
-	return change_page(request, 'navbar')
-
-def modal(request):
-	return change_page(request, 'modal')
-
-def index(request):
-	return change_page(request, 'index')
-
-def profilepage(request):
-	return change_page(request, 'profilepage')
-
-def handler404(request, exception):
-	return redirect(body)

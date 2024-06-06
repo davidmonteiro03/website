@@ -1,86 +1,56 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.js                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 12:41:04 by dcaetano          #+#    #+#             */
-/*   Updated: 2024/06/05 12:41:04 by dcaetano         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 let navbar = null;
+let app = null;
 let modal = null;
-let indexPage = null;
-let profilePage = null;
-let sessionData = null;
-let pages = null;
+let footer = null;
 
 document.addEventListener('DOMContentLoaded', function () {
-	// sessionStorage.clear();
-
-	if (sessionStorage.getItem('user_data'))
-		sessionData = { 'user_data': JSON.parse(sessionStorage.getItem('user_data')) };
-
-	navbar = new ContentLoader('navbar', '/navbar/', sessionData);
-	modal = new ContentLoader('modal', '/modal/', sessionData);
-	indexPage = new ContentLoader('app', '/index/', sessionData);
-	profilePage = new ContentLoader('app', '/profilepage/', sessionData);
-
-	pages = {
-		'/index/': indexPage,
-		'/profilepage/': profilePage
-	}
-
-	navbar.loadContent();
-	indexPage.loadContent();
-	modal.loadContent();
-
-	function changePage(page) {
-		if (!page)
+	navbar = document.getElementById('navbar');
+	app = document.getElementById('app');
+	modal = document.getElementById('modal');
+	footer = document.getElementById('footer');
+	async function loadElement(element, type, file, data = null) {
+		if (document.cookie === '' || element === null) {
 			return;
-		page.updateData(sessionData);
-		if (page.loadContent()) {
-			currentPage = page;
-			history.pushState({ url: page.url }, '', page.url);
 		}
+		const response = await fetch('/', {
+			'method': 'POST',
+			'headers': {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1],
+			},
+			'body': JSON.stringify({
+				'type': type,
+				'file': file,
+				'data': data
+			})
+		});
+		const content = await response.json();
+		// console.log(content);
+		element.innerHTML = content.html;
 	}
-
-	window.changePage = function (event, page) {
-		event.preventDefault();
-		changePage(pages[page]);
+	function updateNavbar(data = null) {
+		loadElement(navbar, 'navbar', 'navbar.html', data);
 	}
-
-	window.addEventListener('popstate', (event) => {
-		if (event.state) {
-			history.replaceState({ url: event.state.url }, '', event.state.url);
-			const page = pages[event.state.url];
-			if (!page)
-				return;
-			page.updateData(sessionData);
-			page.loadContent();
-		}
-		else {
-			history.replaceState({ url: '/index/' }, '', '/index/');
-			const page = indexPage;
-			if (!page)
-				return;
-			page.updateData(sessionData);
-			page.loadContent();
+	function updateApp(page = 'index', data = null) {
+		loadElement(app, 'app', page + '.html', data);
+	}
+	function updateModal(data = null) {
+		loadElement(modal, 'modal',  'modal.html', data);
+	}
+	function updateFooter(data = null) {
+		loadElement(footer, 'footer', 'footer.html', data);
+	}
+	updateNavbar();
+	updateApp();
+	updateModal();
+	updateFooter({
+		'json_fodido': {
+			'ola': {
+				'adeus': 'ola_adeus'
+			},
+			'adeus': {
+				'ola': 'adeus_ola'
+			}
 		}
 	});
-
-	window.signOut = async function (event) {
-		event.preventDefault();
-		const target = sessionData['user_data']['username'];
-		console.log(target);
-	}
-
-
-	//#region User management
-	window.signUp = signUp;
-	window.updateData = updateData;
-	//#endregion
-
 });

@@ -1,12 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-	path('', views.body, name='body'),
-	path('navbar/', views.navbar, name='navbar'),
-	path('modal/', views.modal, name='modal'),
-	path('index/', views.index, name='index'),
-	path('profilepage/', views.profilepage, name='profilepage'),
+	path('', views.main, name='main'),
 ]
-
-handler404 = views.handler404

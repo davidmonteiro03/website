@@ -13,7 +13,6 @@
 #!/bin/sh
 
 cd ./docker/srcs/requirements/website/tools/website
-python3 manage.py makemigrations authentication
 python3 manage.py migrate
 python3 manage.py collectstatic --noinput
 cd ../../../../../..

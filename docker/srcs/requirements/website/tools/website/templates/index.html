@@ -1,14 +1,3 @@
-<h1>
-  {% if user_data %}
-    Welcome, {{ user_data.fname }} {{ user_data.lname }}!
-  {% else %}
-    Welcome to the website!
-  {% endif %}
-</h1>
-{% if user_data %}
-  {% for key, value in user_data.items %}
-    <p>{{ key }}-&gt;{{ value }}</p>
-  {% endfor %}
-{% else %}
-  Sorry, you are not logged in.
-{% endif %}
+<div class="container">
+  <span>index</span>
+</div>
