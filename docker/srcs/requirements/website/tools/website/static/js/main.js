@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			updatePageContent();
 		} else {
 			if (event.state.page === '/' || event.state.page === 'index') {
-				history.replaceState({ page: 'index' }, '', '/');
+				currentPage = 'index';
+				history.replaceState({ page: currentPage }, '', '/');
 				updatePageContent();
 			} else {
 				if (event.state.page === currentPage) return;
