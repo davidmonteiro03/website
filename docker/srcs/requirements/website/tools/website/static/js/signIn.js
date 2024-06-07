@@ -1,4 +1,4 @@
-async function signUp(event) {
+async function signIn(event) {
 	event.preventDefault();
 	if (csrftoken === null || sessiontoken !== null) {
 		return;
@@ -8,13 +8,13 @@ async function signUp(event) {
 	for (const [key, value] of form_data.entries()) {
 		json_data[key] = value;
 	}
-	const response = await fetch('/backend/signup/', {
+	const response = await fetch('/backend/signin/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			'X-CSRFToken': csrftoken
 		},
-		body: JSON.stringify(json_data),
+		body: JSON.stringify(json_data)
 	});
 	if (!response.ok) {
 		return;
@@ -23,6 +23,6 @@ async function signUp(event) {
 	sessionData['sessiontoken'] = content.sessiontoken;
 	sessionData['publicdata'] = content.publicdata;
 	sessiontoken = content.sessiontoken;
-	$('#signupFormModal').modal('hide');
+	$('#signinFormModal').modal('hide');
 	updatePageContent();
 }

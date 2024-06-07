@@ -6,7 +6,7 @@ async function loadElement(element, type, file, data = null) {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1],
+			'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1]
 		},
 		body: JSON.stringify({
 			'type': type,

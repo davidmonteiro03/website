@@ -7,23 +7,23 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
-        {% if token %}
+        {% if sessiontoken %}
           <li class="nav-item d-flex flex-md-row">
             <button onclick="updatePageContent('index')" class="btn btn-primary ft_button mt-1 mt-md-0">Profile</button>
           </li>
         {% endif %}
       </ul>
       <ul class="navbar-nav">
-        {% if token %}
+        {% if sessiontoken %}
           <li class="nav-item d-flex flex-md-row">
-            <button class="btn btn-primary ft_button mt-2 mt-md-0">Sign Out</button>
+            <button class="btn btn-primary ft_button mt-2 mt-md-0" onclick="signOut(event)">Sign Out</button>
           </li>
         {% else %}
           <li class="nav-item d-flex flex-md-row">
             <button class="btn btn-primary ft_button mt-1 mt-md-0" data-bs-toggle="modal" data-bs-target="#signupFormModal">Sign Up</button>
           </li>
           <li class="nav-item d-flex flex-md-row">
-            <button class="btn btn-primary ft_button ms-md-2 mt-2 mt-md-0">Sign In</button>
+            <button class="btn btn-primary ft_button ms-md-2 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#signinFormModal">Sign In</button>
           </li>
         {% endif %}
       </ul>

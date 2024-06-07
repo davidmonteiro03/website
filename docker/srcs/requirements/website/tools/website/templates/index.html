@@ -1,5 +1,9 @@
 <div class="container">
   <span>
-	{{token|default:'vai dormir'}}
+    {% if sessiontoken %}
+      {{ publicdata }}
+    {% else %}
+      fuck you
+    {% endif %}
   </span>
 </div>

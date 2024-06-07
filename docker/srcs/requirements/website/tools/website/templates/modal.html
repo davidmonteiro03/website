@@ -1,4 +1,4 @@
-{% if not token %}
+{% if not sessiontoken %}
   <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content bg-medium">
@@ -20,6 +20,31 @@
             <input id="password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
             <div class="d-flex">
               <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign Up" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger ft_button" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade text-dark" id="signinFormModal" tabindex="-1" aria-labelledby="signinFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-medium">
+        <div class="modal-header">
+          <span class="modal-title ft_span" id="signinFormModalLabel">Sign In</span>
+          <button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form" onsubmit="signIn(event)">
+            <label for="username" class="ft_label">Username</label>
+            <input id="username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
+            <label for="password" class="ft_label mt-2">Password</label>
+            <input id="password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+            <div class="d-flex">
+              <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign In" />
             </div>
           </form>
         </div>
