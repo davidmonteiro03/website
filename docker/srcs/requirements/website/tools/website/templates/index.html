@@ -1,6 +1,6 @@
 <div class="container">
   <span>
-    {% if sessiontoken %}
+    {% if sessiontoken and publicdata %}
       Welcome, {{publicdata.username}}!!!!!
     {% else %}
       ... :(
