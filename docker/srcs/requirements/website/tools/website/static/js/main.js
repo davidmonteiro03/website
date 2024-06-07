@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	}
 
 	function changePage(page = 'index') {
-		if (page === currentPage) return;
+		if (page === currentPage || (page === 'index' && (currentPage === 'index' || currentPage === ''))) return;
 		currentPage = page;
 		updatePageContent(currentPage);
 		if (currentPage === 'index') {
-			history.pushState({ page: currentPage }, '', '/');
+			history.pushState({ page: currentPage }, null, '/');
 		} else {
-			history.pushState({ page: currentPage }, '', '/' + currentPage + '/');
+			history.pushState({ page: currentPage }, null, '/' + currentPage + '/');
 		}
 	}
 
@@ -43,17 +43,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	window.onpopstate = (event) => {
 		if (event.state === null) {
 			currentPage = 'index';
-			history.replaceState({ page: currentPage }, '', '/');
+			history.replaceState({ page: currentPage }, null, '/');
 			updatePageContent();
 		} else {
 			if (event.state.page === '/' || event.state.page === 'index') {
 				currentPage = 'index';
-				history.replaceState({ page: currentPage }, '', '/');
+				history.replaceState({ page: currentPage }, null, '/');
 				updatePageContent();
 			} else {
 				if (event.state.page === currentPage) return;
 				currentPage = event.state.page;
-				history.replaceState({ page: currentPage }, '', '/' + currentPage + '/');
+				history.replaceState({ page: currentPage }, null, '/' + currentPage + '/');
 				updatePageContent(currentPage);
 			}
 		}
