@@ -99,3 +99,25 @@ def signin(request):
 	target.sessiontoken = response.cookies['sessiontoken'].value
 	target.save()
 	return response
+
+@require_POST
+def getdata(request):
+	if (request.body == None or request.body == b''):
+		return JsonResponse(None, safe=False, status=400)
+	body = json.loads(request.body)
+	fields = ['sessiontoken']
+	if set(fields) != set(body.keys()):
+		return JsonResponse(None, safe=False, status=400)
+	target = Users.objects.filter(sessiontoken=body['sessiontoken']).first()
+	if not target:
+		return JsonResponse(None, safe=False, status=401)
+	if target.sessiontoken == '':
+		return JsonResponse(None, safe=False, status=401)
+	return JsonResponse({
+		'publicdata': {
+			'fname': target.fname,
+			'lname': target.lname,
+			'username': target.username,
+			'email': target.email
+		}
+	})

@@ -1,0 +1,9 @@
+<div class="container">
+  <span>
+    {% if sessiontoken %}
+      {% for key, value in publicdata.items %}
+        {{ key }}: {{ value }}<br />
+      {% endfor %}
+    {% endif %}
+  </span>
+</div>
