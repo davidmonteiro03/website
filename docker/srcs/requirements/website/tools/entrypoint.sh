@@ -6,12 +6,14 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:42:25 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/07 12:56:00 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/07 13:04:17 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/sh
 
+pip install djangorestframework
+pip install djangorestframework-simplejwt
 cd /website
 python3 manage.py makemigrations backend
 python3 manage.py migrate

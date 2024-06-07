@@ -5,7 +5,6 @@ let footer = null;
 let sessionData = {};
 let csrftoken = null;
 let sessiontoken = null;
-let currentPage = null;
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	event.preventDefault();
@@ -18,9 +17,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	window.signOut = signOut;
 	window.signIn = signIn;
 
-	currentPage = 'index';
+	let currentPage = '';
 
-	async function startAndUpdate() {
+	async function loadAll() {
 		await sessionStart();
 		updatePageContent();
 	}
@@ -28,8 +27,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	function changePage(page = 'index') {
 		if (page === currentPage) return;
 		currentPage = page;
-		updatePageContent(page);
-		if (page === 'index') {
+		updatePageContent(currentPage);
+		if (currentPage === 'index') {
 			history.pushState({ page: currentPage }, '', '/');
 		} else {
 			history.pushState({ page: currentPage }, '', '/' + currentPage + '/');
@@ -50,11 +49,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				history.replaceState({ page: 'index' }, '', '/');
 				updatePageContent();
 			} else {
-				history.replaceState({ page: event.state.page }, '', '/' + event.state.page + '/');
-				updatePageContent(event.state.page);
+				if (event.state.page === currentPage) return;
+				currentPage = event.state.page;
+				history.replaceState({ page: currentPage }, '', '/' + currentPage + '/');
+				updatePageContent(currentPage);
 			}
 		}
 	};
 
-	startAndUpdate();
+	loadAll();
 });

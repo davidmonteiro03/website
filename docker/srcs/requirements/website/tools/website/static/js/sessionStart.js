@@ -22,6 +22,7 @@ async function sessionStart() {
 		body: JSON.stringify({ 'sessiontoken': sessiontoken })
 	});
 	if (!response.ok) {
+		document.cookie = "sessiontoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=Strict";
 		return;
 	}
 	const content = await response.json();
