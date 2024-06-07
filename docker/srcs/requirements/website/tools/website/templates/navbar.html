@@ -2,7 +2,11 @@
   <div class="container-fluid">
     <a class="navbar-brand" onclick="changePage(event)">
       {% load static %}
-      <img src="{% static 'images/favicon.ico' %}" width="40" height="40" class="d-inline-block align-top" alt="icon" loading="lazy" />
+      {% if sessiontoken %}
+        <img src="{% static 'profilephotos/'|add:publicdata.profilephoto %}" width="40" height="40" class="d-inline-block rounded-circle object-fit-cover" alt="icon" loading="lazy" />
+      {% else %}
+        <img src="{% static 'images/favicon.ico' %}" width="40" height="40" class="d-inline-block object-fit-cover" alt="icon" loading="lazy" />
+      {% endif %}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarNav">

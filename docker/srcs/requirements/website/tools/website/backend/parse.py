@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 def name(name: str) -> str:
 	name = name.strip()
 	if len(name) < 3:
-		return None
+		return None, None
 	if len(name) > 32:
 		return None
 	if not name.isalpha():

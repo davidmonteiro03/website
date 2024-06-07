@@ -3,18 +3,14 @@ async function signUp(event) {
 	if (csrftoken === null || sessiontoken !== null) {
 		return;
 	}
+	// console.log(event.target);
 	const form_data = new FormData(event.target);
-	const json_data = {};
-	for (const [key, value] of form_data.entries()) {
-		json_data[key] = value;
-	}
 	const response = await fetch('/backend/signup/', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
 			'X-CSRFToken': csrftoken
 		},
-		body: JSON.stringify(json_data),
+		body: form_data
 	});
 	if (!response.ok) {
 		return;
@@ -25,4 +21,5 @@ async function signUp(event) {
 	sessiontoken = content.sessiontoken;
 	$('#signupFormModal').modal('hide');
 	updatePageContent();
+	changePage(event, 'index');
 }

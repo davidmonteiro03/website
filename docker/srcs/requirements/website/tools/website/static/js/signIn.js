@@ -25,4 +25,5 @@ async function signIn(event) {
 	sessiontoken = content.sessiontoken;
 	$('#signinFormModal').modal('hide');
 	updatePageContent();
+	changePage(event, 'index');
 }

@@ -7,7 +7,7 @@
           <button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form class="form" onsubmit="signUp(event)">
+          <form class="form" onsubmit="signUp(event)" enctype="multipart/form-data">
             <label for="fname" class="ft_label">First Name</label>
             <input id="fname" name="fname" type="text" class="form-control mt-1 ft_input" placeholder="type your first name" autocomplete="off" required />
             <label for="lname" class="ft_label mt-2">Last Name</label>
@@ -18,6 +18,8 @@
             <input id="email" name="email" type="text" class="form-control mt-1 ft_input" placeholder="type your email" autocomplete="off" required />
             <label for="password" class="ft_label mt-2">Password</label>
             <input id="password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+            <label for="profilephoto" class="ft_label mt-2">Profile foto</label>
+            <input id="profilephoto" name="profilephoto" type="file" class="form-control mt-1 ft_input" autocomplete="off" accept="image/*" required />
             <div class="d-flex">
               <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign Up" />
             </div>

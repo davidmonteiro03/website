@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	}
 
-	window.changePage = (event, page) => {
+	window.changePage = (event, page = 'index') => {
 		event.preventDefault();
 		changePage(page);
 	};

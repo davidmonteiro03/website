@@ -7,15 +7,28 @@ from .models import Users
 from django.db.models import Q
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import check_password
+from django.core.files.storage import default_storage
 
 # Create your views here.
 @require_POST
 def signup(request):
-	if (request.body == None or request.body == b''):
+	body = {}
+	for key in request.POST:
+		body[key] = request.POST[key]
+	if body == {}:
 		return JsonResponse(None, safe=False, status=400)
-	body = json.loads(request.body)
 	fields = ['fname', 'lname', 'username', 'email', 'password']
 	if set(fields) != set(body.keys()):
+		return JsonResponse(None, safe=False, status=400)
+	file = {}
+	for key in request.FILES:
+		file[key] = request.FILES[key]
+	if file == {}:
+		return JsonResponse(None, safe=False, status=400)
+	file_fields = ['profilephoto']
+	if set(file_fields) != set(file.keys()):
+		return JsonResponse(None, safe=False, status=400)
+	if not file['profilephoto'].content_type.startswith('image/'):
 		return JsonResponse(None, safe=False, status=400)
 	parsing = {
 		'fname': parse.name(body['fname']),
@@ -29,13 +42,16 @@ def signup(request):
 	).first()
 	if target is not None or None in parsing.values():
 		return JsonResponse(None, safe=False, status=401)
+	default_storage.save('static/profilephotos/' + file['profilephoto'].name, file['profilephoto'])
 	user = Users.objects.create(
 		fname=parsing['fname'],
 		lname=parsing['lname'],
 		username=parsing['username'],
 		email=parsing['email'],
 		password=parsing['password'],
+		profilephoto=file['profilephoto'].name,
 	)
+	print(user.profilephoto)
 	sessiontoken = RefreshToken.for_user(user)
 	response = JsonResponse({
 		'sessiontoken': str(sessiontoken),
@@ -43,7 +59,8 @@ def signup(request):
 			'fname': user.fname,
 			'lname': user.lname,
 			'username': user.username,
-			'email': user.email
+			'email': user.email,
+			'profilephoto': user.profilephoto
 		}
 	})
 	response.set_cookie('sessiontoken', str(sessiontoken), samesite='Strict', secure=True)
@@ -92,7 +109,8 @@ def signin(request):
 			'fname': target.fname,
 			'lname': target.lname,
 			'username': target.username,
-			'email': target.email
+			'email': target.email,
+			'profilephoto': target.profilephoto
 		}
 	})
 	response.set_cookie('sessiontoken', str(sessiontoken), samesite='Strict', secure=True)
@@ -118,6 +136,7 @@ def getdata(request):
 			'fname': target.fname,
 			'lname': target.lname,
 			'username': target.username,
-			'email': target.email
+			'email': target.email,
+			'profilephoto': target.profilephoto
 		}
 	})

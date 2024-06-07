@@ -18,4 +18,5 @@ async function signOut(event) {
 	sessiontoken = null;
 	sessionData = {};
 	updatePageContent();
+	changePage(event, 'index');
 }
