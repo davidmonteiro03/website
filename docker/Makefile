@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/07 12:00:45 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/07 12:01:16 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,4 +27,4 @@ fclean: clean
 
 re: clean up
 
-.PHONY: all up  down clean fclean re
+.PHONY: all up down clean fclean re
