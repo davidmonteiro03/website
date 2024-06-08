@@ -55,7 +55,7 @@ def signup(request):
 	)
 	token = RefreshToken.for_user(user)
 	response = JsonResponse({'success': http.HTTPStatus(201).phrase}, status=201)
-	response.set_cookie('token', str(token), samesite='Strict')
+	response.set_cookie('token', str(token), samesite='Strict', secure=True)
 	user.token = response.cookies['token'].value
 	user.save()
 	return response
@@ -78,7 +78,7 @@ def signin(request):
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	token = RefreshToken.for_user(user)
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
-	response.set_cookie('token', str(token), samesite='Strict')
+	response.set_cookie('token', str(token), samesite='Strict', secure=True)
 	user.token = response.cookies['token'].value
 	user.save()
 	return response
