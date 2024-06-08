@@ -9,7 +9,7 @@ class CustomErrorHandlerMiddleware:
 	def __call__(self, request):
 		try:
 			response = self.get_response(request)
-			if response.status_code == 200:
+			if response.status_code >= 200 and response.status_code < 300:
 				return response
 			html = loader.render_to_string('error.html', context={
 				'code': response.status_code,

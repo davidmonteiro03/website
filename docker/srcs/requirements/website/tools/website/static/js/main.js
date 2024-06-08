@@ -2,9 +2,7 @@ let navbar = null;
 let app = null;
 let modal = null;
 let footer = null;
-let sessionData = {};
 let csrftoken = null;
-let sessiontoken = null;
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	event.preventDefault();
@@ -13,21 +11,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	modal = document.getElementById('modal');
 	footer = document.getElementById('footer');
 
-	window.signUp = signUp;
-	window.signOut = signOut;
-	window.signIn = signIn;
-
-	let currentPage = '';
-
-	async function loadAll() {
-		await sessionStart();
-		updatePageContent();
+	if (!(document.cookie === '')) {
+		let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
+		csrftoken = tmp.split('=')[1];
 	}
 
+	let currentPage = 'index';
+
 	function changePage(page = 'index') {
-		if (page === currentPage || (page === 'index' && (currentPage === 'index' || currentPage === ''))) return;
+		updatePageContent(page);
+		if (currentPage === page) return;
 		currentPage = page;
-		updatePageContent(currentPage);
 		if (currentPage === 'index') {
 			history.pushState({ page: currentPage }, null, '/');
 		} else {
@@ -59,5 +53,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	};
 
-	loadAll();
+	updatePageContent();
 });

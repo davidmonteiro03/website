@@ -1,22 +1,10 @@
 async function signOut(event) {
 	event.preventDefault();
-	if (csrftoken === null || sessiontoken === undefined) {
-		return;
-	}
+	if (csrftoken === null) return;
 	const response = await fetch('/backend/signout/', {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': csrftoken
-		},
-		body: JSON.stringify({ 'sessiontoken': sessiontoken })
+		headers: { 'X-CSRFToken': csrftoken }
 	});
-	if (!response.ok) {
-		return;
-	}
-	const content = await response.json();
-	sessiontoken = null;
-	sessionData = {};
-	updatePageContent();
-	changePage(event, 'index');
+	if (!response.ok) return;
+	changePage(event);
 }

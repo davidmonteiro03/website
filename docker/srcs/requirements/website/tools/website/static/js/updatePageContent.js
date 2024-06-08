@@ -1,4 +1,4 @@
-async function loadElement(element, type, file, data = null) {
+async function loadElement(element, type, url = 'index') {
 	if (document.cookie === '' || element === null) {
 		return;
 	}
@@ -10,19 +10,16 @@ async function loadElement(element, type, file, data = null) {
 		},
 		body: JSON.stringify({
 			'type': type,
-			'file': file,
-			'data': data
+			'file': url + '.html'
 		})
 	});
-	if (!response.ok) {
-		return;
-	}
+	if (!response.ok) return;
 	const content = await response.json();
 	element.innerHTML = content.html;
 }
 function updatePageContent(page = 'index') {
-	loadElement(navbar, 'navbar', 'navbar.html', sessionData);
-	loadElement(app, 'app', page + '.html', sessionData);
-	loadElement(modal, 'modal', 'modal.html', sessionData);
-	loadElement(footer, 'footer', 'footer.html', sessionData);
+	loadElement(navbar, 'navbar', 'navbar');
+	loadElement(app, 'app', page);
+	loadElement(modal, 'modal', 'modal');
+	loadElement(footer, 'footer', 'footer');
 }

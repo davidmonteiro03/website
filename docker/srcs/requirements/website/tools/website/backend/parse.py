@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import make_password
+import json
 
 def name(name: str) -> str:
 	name = name.strip()

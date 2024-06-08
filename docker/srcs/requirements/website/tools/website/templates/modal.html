@@ -1,4 +1,4 @@
-{% if not sessiontoken or not publicdata %}
+{% if not token %}
   <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content bg-medium">
@@ -8,18 +8,18 @@
         </div>
         <div class="modal-body">
           <form class="form" onsubmit="signUp(event)" enctype="multipart/form-data">
-            <label for="fname" class="ft_label">First Name</label>
-            <input id="fname" name="fname" type="text" class="form-control mt-1 ft_input" placeholder="type your first name" autocomplete="off" required />
-            <label for="lname" class="ft_label mt-2">Last Name</label>
-            <input id="lname" name="lname" type="text" class="form-control mt-1 ft_input" placeholder="type your last name" autocomplete="off" required />
-            <label for="username" class="ft_label mt-2">Username</label>
-            <input id="username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
-            <label for="email" class="ft_label mt-2">Email</label>
-            <input id="email" name="email" type="text" class="form-control mt-1 ft_input" placeholder="type your email" autocomplete="off" required />
-            <label for="password" class="ft_label mt-2">Password</label>
-            <input id="password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
-            <label for="profilephoto" class="ft_label mt-2">Profile foto</label>
-            <input id="profilephoto" name="profilephoto" type="file" class="form-control mt-1 ft_input" autocomplete="off" accept="image/*" required />
+            <label for="new_fname" class="ft_label">First Name</label>
+            <input id="new_fname" name="fname" type="text" class="form-control mt-1 ft_input" placeholder="type your first name" autocomplete="off" required />
+            <label for="new_lname" class="ft_label mt-2">Last Name</label>
+            <input id="new_lname" name="lname" type="text" class="form-control mt-1 ft_input" placeholder="type your last name" autocomplete="off" required />
+            <label for="new_username" class="ft_label mt-2">Username</label>
+            <input id="new_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
+            <label for="new_email" class="ft_label mt-2">Email</label>
+            <input id="new_email" name="email" type="text" class="form-control mt-1 ft_input" placeholder="type your email" autocomplete="off" required />
+            <label for="new_password" class="ft_label mt-2">Password</label>
+            <input id="new_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+            <label for="new_profilephoto" class="ft_label mt-2">Profile photo</label>
+            <input id="new_profilephoto" name="profilephoto" type="file" class="form-control mt-1 ft_input" autocomplete="off" accept="image/*" required />
             <div class="d-flex">
               <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign Up" />
             </div>
@@ -41,10 +41,10 @@
         </div>
         <div class="modal-body">
           <form class="form" onsubmit="signIn(event)">
-            <label for="username" class="ft_label">Username</label>
-            <input id="username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
-            <label for="password" class="ft_label mt-2">Password</label>
-            <input id="password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+            <label for="exi_username" class="ft_label">Username</label>
+            <input id="exi_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
+            <label for="exi_password" class="ft_label mt-2">Password</label>
+            <input id="exi_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
             <div class="d-flex">
               <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign In" />
             </div>

@@ -1,9 +1,5 @@
-<div class="container">
-  <span>
-    {% if sessiontoken and publicdata %}
-      Welcome, {{publicdata.username}}!!!!!
-    {% else %}
-      ... :(
-    {% endif %}
-  </span>
-</div>
+{% if token %}
+{{userdata}}
+{% else %}
+Welcome to my awesome website!
+{% endif %}
