@@ -89,7 +89,7 @@ def signout(request):
 	for key in request.COOKIES:
 		cookies[key] = request.COOKIES[key]
 	if 'token' not in cookies.keys():
-		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
+		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	user = Users.objects.filter(token=cookies['token']).first()
 	if not user:
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
