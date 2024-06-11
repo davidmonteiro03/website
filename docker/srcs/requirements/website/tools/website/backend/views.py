@@ -90,11 +90,8 @@ def signout(request):
 		cookies[key] = request.COOKIES[key]
 	if 'token' not in cookies.keys():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	user = Users.objects.filter(token=cookies['token']).first()
-	if not user:
+	if not Users.objects.filter(token=cookies['token']).first():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 	response.delete_cookie('token')
-	user.token = ''
-	user.save()
 	return response
