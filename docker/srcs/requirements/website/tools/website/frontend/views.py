@@ -2,23 +2,31 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.template import loader
 from django.views.decorators.http import require_POST
+from django.forms.models import model_to_dict
 from backend.models import Users
 import json, http
 
 # Create your views here.
+def model_to_json(model):
+	target_dict = model_to_dict(model)
+	result = {}
+	for key in target_dict.keys():
+		result[key] = target_dict[key]
+	if 'id' in result:
+		del result['id']
+	if 'password' in result:
+		del result['password']
+	if 'token' in result:
+		del result['token']
+	return result
+
 def main(request):
 	token = request.COOKIES.get('token')
 	target = Users.objects.filter(token=token).first()
 	json_data = {}
 	if token and target:
 		json_data['token'] = token
-		json_data['userdata'] = {
-			'fname': target.fname,
-			'lname': target.lname,
-			'username': target.username,
-			'email': target.email,
-			'profilephoto': target.profilephoto
-		}
+		json_data['userdata'] = model_to_json(target)
 	if request.method != 'POST':
 		return render(request, 'main.html', json_data)
 	if request.body == None or request.body == b'':
