@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import check_password
 from django.core.files.storage import default_storage
 from rest_framework.authtoken.models import Token
 from . import parse
-from .models import Users
+from .models import Users, Sessions
 
 # Create your views here.
 @require_POST
@@ -54,10 +54,9 @@ def signup(request):
 		profilephoto=new_filename
 	)
 	token = RefreshToken.for_user(user)
+	Sessions.objects.create(user_id=user.id, session_token=token)
 	response = JsonResponse({'success': http.HTTPStatus(201).phrase}, status=201)
 	response.set_cookie('token', str(token), samesite='Strict', secure=True)
-	user.token = response.cookies['token'].value
-	user.save()
 	return response
 
 @require_POST
@@ -77,10 +76,9 @@ def signin(request):
 	if not user or not check_password(body['password'], user.password):
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	token = RefreshToken.for_user(user)
+	Sessions.objects.create(user_id=user.id, session_token=token)
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 	response.set_cookie('token', str(token), samesite='Strict', secure=True)
-	user.token = response.cookies['token'].value
-	user.save()
 	return response
 
 @require_POST
@@ -90,22 +88,7 @@ def signout(request):
 		cookies[key] = request.COOKIES[key]
 	if 'token' not in cookies.keys():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	if not Users.objects.filter(token=cookies['token']).first():
-		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
+	Sessions.objects.filter(session_token=cookies['token']).delete()
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 	response.delete_cookie('token')
 	return response
-
-# new version
-# @require_POST
-# def signout(request):
-	# cookies = {}
-	# for key in request.COOKIES:
-	# 	cookies[key] = request.COOKIES[key]
-	# if 'token' not in cookies.keys():
-	# 	return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	# user = extract_user(token)
-	# target = Users.objects.filter(username=user['username']).first()
-	# if not target:
-	# 	return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	# response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)

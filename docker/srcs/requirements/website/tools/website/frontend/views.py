@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.template import loader
 from django.views.decorators.http import require_POST
 from django.forms.models import model_to_dict
-from backend.models import Users
+from backend.models import Users, Sessions
 import json, http
 
 # Create your views here.
@@ -16,17 +16,14 @@ def model_to_json(model):
 		del result['id']
 	if 'password' in result:
 		del result['password']
-	if 'token' in result:
-		del result['token']
 	return result
 
 def main(request):
 	token = request.COOKIES.get('token')
-	target = Users.objects.filter(token=token).first()
+	session = Sessions.objects.select_related('user').filter(session_token=token).first()
 	json_data = {}
-	if token and target:
-		json_data['token'] = token
-		json_data['userdata'] = model_to_json(target)
+	if token and session:
+		json_data['userdata'] = model_to_json(session.user)
 	if request.method != 'POST':
 		return render(request, 'main.html', json_data)
 	if request.body == None or request.body == b'':
