@@ -10,4 +10,5 @@ async function signUp(event) {
 	if (!response.ok) return;
 	$('#signupFormModal').modal('hide');
 	changePage(event);
+	document.title = "Home";
 }

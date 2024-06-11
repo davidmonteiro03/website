@@ -1,6 +1,6 @@
-{% if token %}
-Welcome, {{userdata.fname}} {{userdata.lname}}!<br>
-Your data: {{userdata}}
-{% else %}
-Welcome to my awesome website!
-{% endif %}
+<div class="container">
+	{% if token %}
+	{% else %}
+	Welcome!<br>
+	{% endif %}
+</div>

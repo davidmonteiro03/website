@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.hashers import check_password
 from django.core.files.storage import default_storage
+from rest_framework.authtoken.models import Token
 from . import parse
 from .models import Users
 
@@ -36,7 +37,6 @@ def signup(request):
 		'email': parse.email(body['email']),
 		'password': parse.password(body['password']),
 	}
-	Users.objects.all().delete()
 	target = Users.objects.filter(
 		Q(username=parsing['username']) | Q(email=parsing['email'])
 	).first()
@@ -95,3 +95,17 @@ def signout(request):
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 	response.delete_cookie('token')
 	return response
+
+# new version
+# @require_POST
+# def signout(request):
+	# cookies = {}
+	# for key in request.COOKIES:
+	# 	cookies[key] = request.COOKIES[key]
+	# if 'token' not in cookies.keys():
+	# 	return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
+	# user = extract_user(token)
+	# target = Users.objects.filter(username=user['username']).first()
+	# if not target:
+	# 	return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
+	# response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)

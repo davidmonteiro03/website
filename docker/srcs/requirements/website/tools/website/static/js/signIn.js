@@ -15,4 +15,5 @@ async function signIn(event) {
 	if (!response.ok) return;
 	$('#signinFormModal').modal('hide');
 	changePage(event);
+	document.title = "Home";
 }

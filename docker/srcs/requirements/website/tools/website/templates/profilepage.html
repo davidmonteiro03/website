@@ -1,9 +1,13 @@
-<div class="container">
-	<span>
-	  {% if token %}
-		{% for key, value in userdata.items %}
-		  {{ key }}: {{ value }}<br />
-		{% endfor %}
-	  {% endif %}
-	</span>
+{% if token %}
+  <div class="d-flex flex-column flex-sm-row align-items-center rounded mx-2 mt-2">
+    <div class="ratio ratio-1x1" style="min-width: 75px; min-height: 75px; max-width: 250px; max-height: 250px">
+      {% load static %}
+      <img class="img-fluid object-fit-cover rounded-circle" src="{% static 'profilephotos/'|add:userdata.profilephoto %}" alt="profilephoto" />
+    </div>
+    <div class="mt-3 mt-sm-0 ms-sm-3 text-center text-sm-start">
+		<span class="ft_span">{{userdata.fname}} {{userdata.lname}}</span><br>
+		<span>{{userdata.username}}</span><br>
+		<span>{{userdata.email}}</span>
+    </div>
   </div>
+{% endif %}

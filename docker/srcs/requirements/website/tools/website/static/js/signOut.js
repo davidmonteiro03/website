@@ -7,4 +7,5 @@ async function signOut(event) {
 	});
 	if (!response.ok) return;
 	changePage(event);
+	document.title = "AWESOME WEBSITE";
 }
