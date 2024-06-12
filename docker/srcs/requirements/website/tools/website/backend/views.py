@@ -37,10 +37,12 @@ def signup(request):
 		'email': parse.email(body['email']),
 		'password': parse.password(body['password']),
 	}
+	if None in parsing.values():
+		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	target = Users.objects.filter(
 		Q(username=parsing['username']) | Q(email=parsing['email'])
 	).first()
-	if target or None in parsing.values():
+	if target:
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	_, ext = os.path.splitext(file['profilephoto'].name)
 	new_filename = f"{parsing['username']}{ext}"
