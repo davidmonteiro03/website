@@ -7,6 +7,7 @@ async function signUp(event) {
 		headers: { 'X-CSRFToken': csrftoken },
 		body: form_data
 	});
+	console.log(response);
 	if (!response.ok) return;
 	$('#signupFormModal').modal('hide');
 	changePage(event);
