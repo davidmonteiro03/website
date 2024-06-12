@@ -50,3 +50,7 @@ a:hover {
 .ft_span {
 	font-size: 25px;
 }
+
+.ft_error {
+	font-size: 16px;
+}

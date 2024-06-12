@@ -1,27 +1,40 @@
 {% if not userdata %}
   <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-medium">
+      <div class="modal-content bg-dark text-light">
         <div class="modal-header">
           <span class="modal-title ft_span" id="signupFormModalLabel">Sign Up</span>
-          <button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" align="center">
           <form class="form" onsubmit="signUp(event)" enctype="multipart/form-data">
-            <label for="new_fname" class="ft_label">First Name</label>
-            <input id="new_fname" name="fname" type="text" class="form-control mt-1 ft_input" placeholder="type your first name" autocomplete="off" required />
-            <label for="new_lname" class="ft_label mt-2">Last Name</label>
-            <input id="new_lname" name="lname" type="text" class="form-control mt-1 ft_input" placeholder="type your last name" autocomplete="off" required />
-            <label for="new_username" class="ft_label mt-2">Username</label>
-            <input id="new_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
-            <label for="new_email" class="ft_label mt-2">Email</label>
-            <input id="new_email" name="email" type="text" class="form-control mt-1 ft_input" placeholder="type your email" autocomplete="off" required />
-            <label for="new_password" class="ft_label mt-2">Password</label>
-            <input id="new_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
-            <label for="new_profilephoto" class="ft_label mt-2">Profile photo</label>
-            <input id="new_profilephoto" name="profilephoto" type="file" class="form-control mt-1 ft_input" autocomplete="off" accept="image/*" required />
-            <div class="d-flex">
-              <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign Up" />
+            <div>
+              <input oninput="signUpFormHelper(this)" id="new_fname" name="fname" type="text" class="form-control mt-1 ft_input" placeholder="type your first name" autocomplete="off" required />
+              <div class="invalid-feedback ft_error" id="new_fname_feedback"></div>
+            </div>
+            <div class="mt-3">
+              <input oninput="signUpFormHelper(this)" id="new_lname" name="lname" type="text" class="form-control mt-1 ft_input" placeholder="type your last name" autocomplete="off" required />
+              <div class="invalid-feedback ft_error" id="new_lname_feedback"></div>
+            </div>
+            <div class="mt-3">
+              <input oninput="signUpFormHelper(this)" id="new_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
+              <div class="invalid-feedback ft_error" id="new_username_feedback"></div>
+            </div>
+            <div class="mt-3">
+              <input oninput="signUpFormHelper(this)" id="new_email" name="email" type="text" class="form-control mt-1 ft_input" placeholder="type your email" autocomplete="off" required />
+              <div class="invalid-feedback ft_error" id="new_email_feedback"></div>
+            </div>
+            <div class="mt-3">
+              <input oninput="signUpFormHelper(this)" id="new_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+              <div class="invalid-feedback ft_error" id="new_password_feedback"></div>
+            </div>
+            <div class="mt-3">
+              <div id="show-foto"></div>
+              <input oninput="signUpFormHelper(this)" id="new_profilephoto" name="profilephoto" type="file" class="form-control mt-1 ft_input" autocomplete="off" accept="image/*" required />
+              <div class="invalid-feedback" id="new_profilephoto_feedback"></div>
+            </div>
+            <div class="d-flex mt-3">
+              <input type="submit" class="btn btn-primary flex-grow-1 ft_input" value="Sign Up" />
             </div>
           </form>
         </div>
@@ -41,12 +54,14 @@
         </div>
         <div class="modal-body">
           <form class="form" onsubmit="signIn(event)">
-            <label for="exi_username" class="ft_label">Username</label>
-            <input id="exi_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
-            <label for="exi_password" class="ft_label mt-2">Password</label>
-            <input id="exi_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
-            <div class="d-flex">
-              <input type="submit" class="btn btn-primary mt-3 flex-grow-1 ft_input" value="Sign In" />
+            <div>
+              <input id="exi_username" name="username" type="text" class="form-control mt-1 ft_input" placeholder="type your username" autocomplete="off" required />
+            </div>
+            <div class="mt-3">
+              <input id="exi_password" name="password" type="password" class="form-control mt-1 ft_input" placeholder="type your password" autocomplete="off" required />
+            </div>
+            <div class="d-flex mt-3">
+              <input type="submit" class="btn btn-primary flex-grow-1 ft_input" value="Sign In" />
             </div>
           </form>
         </div>
