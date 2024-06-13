@@ -37,6 +37,7 @@ a:hover {
 
 .ft_button {
 	font-size: 18px;
+	transition: 0.4s;
 }
 
 .ft_input {

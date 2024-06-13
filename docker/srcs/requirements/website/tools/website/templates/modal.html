@@ -1,10 +1,10 @@
 {% if not userdata %}
   <div class="modal fade text-dark" id="signupFormModal" tabindex="-1" aria-labelledby="signupFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-dark text-light">
+      <div class="modal-content">
         <div class="modal-header">
           <span class="modal-title ft_span" id="signupFormModalLabel">Sign Up</span>
-          <button type="button" class="btn-close btn-close-white ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" align="center">
           <form class="form" onsubmit="signUp(event)" enctype="multipart/form-data">
@@ -47,10 +47,10 @@
 
   <div class="modal fade text-dark" id="signinFormModal" tabindex="-1" aria-labelledby="signinFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-medium">
+      <div class="modal-content">
         <div class="modal-header">
           <span class="modal-title ft_span" id="signinFormModalLabel">Sign In</span>
-          <button type="button" class="btn-close btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close ft_button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="form" onsubmit="signIn(event)">

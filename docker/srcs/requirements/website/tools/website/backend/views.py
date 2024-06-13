@@ -1,6 +1,6 @@
 import http, os, json
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.hashers import check_password
@@ -39,10 +39,7 @@ def signup(request):
 	}
 	if None in parsing.values():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	target = Users.objects.filter(
-		Q(username=parsing['username']) | Q(email=parsing['email'])
-	).first()
-	if target:
+	if Users.objects.filter(Q(username=parsing['username']) | Q(email=parsing['email'])).exists():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	_, ext = os.path.splitext(file['profilephoto'].name)
 	new_filename = f"{parsing['username']}{ext}"
@@ -94,3 +91,17 @@ def signout(request):
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 	response.delete_cookie('token')
 	return response
+
+@require_POST
+def getuser(request):
+	data = json.loads(request.body)
+	if len(data) != 1:
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
+	valid_fields = ['username', 'email']
+	field = list(data.keys())[0]
+	if field not in valid_fields:
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
+	target = Users.objects.filter(Q(username=data[field]) | Q(email=data[field])).first()
+	if target:
+		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
+	return JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)

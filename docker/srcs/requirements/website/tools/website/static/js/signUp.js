@@ -1,4 +1,4 @@
-function signUpFormHelper(input) {
+async function signUpFormHelper(input) {
 	let id = input.id;
 	let name = input.name;
 	let value = input.value;
@@ -22,20 +22,36 @@ function signUpFormHelper(input) {
 		document.getElementById(id + '_feedback').innerHTML = error;
 	}
 
+	async function searchClient() {
+		const data = {};
+		data[name] = value;
+		const response = await fetch('/backend/getuser/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrftoken
+			},
+			body: JSON.stringify(data)
+		});
+		if (response.ok) return;
+		error = name.charAt(0).toUpperCase() + name.slice(1) + " already exists.";
+	}
+
 	function namesHelper() {
 		if (value.length < 3) return error = "Name must be at least 3 characters long.";
 		if (value.length > 32) return error = "Name must be at most 32 characters long.";
 		if (!value.match(/^[^\p{P}\p{S}\p{N}\p{C}\p{Z}]+$/gu)) return error = "Name must contain only letters.";
 	}
 
-	function usernamesHelper() {
+	async function usernamesHelper() {
 		if (value.length < 3) return error = "Username must be at least 3 characters long.";
 		if (value.length > 32) return error = "Username must be at most 32 characters long.";
 		if (!value.match(/^[a-z0-9_.-]+$/)) return error = "Username must contain only lowercase letters, numbers, and the characters '.', '_', and '-'.";
 		if (!value[0].match(/[a-z]/)) return error = "Username must start with a lowercase letter.";
+		await searchClient();
 	}
 
-	function emailHelper() {
+	async function emailHelper() {
 		if (value.length < 5) return error = "Email must be at least 5 characters long.";
 		if (value.length > 97) return error = "Email must be at most 97 characters long.";
 		let main_values = ft_split(value, '@');
@@ -57,6 +73,7 @@ function signUpFormHelper(input) {
 				return error = "Email must contain a domain with only lowercase letters and numbers.";
 			}
 		}
+		await searchClient();
 	}
 
 	function passwordHelper() {
@@ -79,7 +96,7 @@ function signUpFormHelper(input) {
 			return error = "Profile photo must be an image.";
 		}
 		const filein = new FileReader();
-		filein.onload = function(value) {
+		filein.onload = function (value) {
 			if (document.getElementById("show-foto").hasChildNodes())
 				document.getElementById("show-foto").removeChild(document.getElementById("show-foto").firstChild);
 			const image = document.createElement('img');
@@ -91,7 +108,6 @@ function signUpFormHelper(input) {
 			document.getElementById('show-foto').style.maxWidth = '250px';
 			document.getElementById('show-foto').style.maxHeight = '250px';
 			document.getElementById('show-foto').appendChild(image);
-			console.log(image);
 		}
 		filein.readAsDataURL(file);
 	}
@@ -102,10 +118,10 @@ function signUpFormHelper(input) {
 			namesHelper();
 			break;
 		case 'username':
-			usernamesHelper();
+			await usernamesHelper();
 			break;
 		case 'email':
-			emailHelper();
+			await emailHelper();
 			break;
 		case 'password':
 			passwordHelper();
