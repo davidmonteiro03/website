@@ -25,7 +25,7 @@ def main(request):
 	if token and session:
 		json_data['userdata'] = model_to_json(session.user)
 	if request.method != 'POST':
-		return render(request, 'main.html', json_data)
+		return render(request, 'main.html', context=json_data)
 	if request.body == None or request.body == b'':
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	body = json.loads(request.body)
@@ -37,5 +37,5 @@ def main(request):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	if not body['file']:
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
-	html = loader.render_to_string(body['file'], json_data)
+	html = loader.render_to_string(body['file'], context=json_data)
 	return JsonResponse({'success': http.HTTPStatus(200).phrase, 'html': html}, status=200)
