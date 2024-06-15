@@ -4,6 +4,7 @@ from django.template import loader
 from django.forms.models import model_to_dict
 from backend.models import Session
 import json, http
+from django.conf import settings
 
 # Create your views here.
 def model_to_json(model):
@@ -23,6 +24,7 @@ def main(request):
 	json_data = {}
 	if token and session:
 		json_data['userdata'] = model_to_json(session.user)
+		json_data['MEDIA_URL'] = settings.MEDIA_URL
 	if request.method != 'POST':
 		return render(request, 'main.html', context=json_data)
 	if request.body == None or request.body == b'':

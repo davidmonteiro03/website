@@ -8,7 +8,7 @@ class User(models.Model):
 	username = models.CharField(max_length=255)
 	password = models.CharField(max_length=255)
 	email = models.CharField(max_length=255)
-	profilephoto = models.CharField(max_length=255)
+	profilephoto = models.ImageField(upload_to='profilephotos/')
 
 class Session(models.Model):
 	id = models.AutoField(primary_key=True)

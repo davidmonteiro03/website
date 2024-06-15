@@ -13,7 +13,7 @@
 #!/bin/sh
 
 cd ./docker/srcs/requirements/website/tools/website
-rm -rf ./*.sqlite3 ./staticfiles/ ./static/profilephotos/
+rm -rf ./*.sqlite3 ./staticfiles/ ./media/profilephotos/
 find . -name "migrations" -type d -exec rm -rf {} +
 find . -name "__pycache__" -type d -exec rm -rf {} +
 cd ../../../../../..

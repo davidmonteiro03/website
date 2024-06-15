@@ -40,16 +40,13 @@ def signup(request):
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	if User.objects.filter(Q(username=parsing['username']) | Q(email=parsing['email'])).exists():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	_, ext = os.path.splitext(file['profilephoto'].name)
-	new_filename = f"{parsing['username']}{ext}"
-	default_storage.save('static/profilephotos/' + new_filename, file['profilephoto'])
 	user = User.objects.create(
 		fname=parsing['fname'],
 		lname=parsing['lname'],
 		username=parsing['username'],
 		password=parsing['password'],
 		email=parsing['email'],
-		profilephoto=new_filename
+		profilephoto=file['profilephoto']
 	)
 	token = RefreshToken.for_user(user)
 	Session.objects.create(user_id=user.id, session_token=token)
@@ -119,12 +116,14 @@ def update(request):
 	session = Session.objects.select_related('user').filter(session_token=cookies['token']).first()
 	if not session:
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
-	if request.body == b'':
-		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
-	body = json.loads(request.body)
 	soft_fields = ['fname', 'lname']
 	hard_fields = ['username', 'oldpassword', 'newpassword']
 	fields = soft_fields + hard_fields
+	body = {}
+	for key in request.POST:
+		body[key] = request.POST[key]
+	if not request.FILES:
+		del body['profilephoto']
 	if set(fields) != set(body.keys()):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	user = session.user
@@ -140,15 +139,14 @@ def update(request):
 		target = User.objects.filter(username=parsers[hard_fields[0]](body[hard_fields[0]])).first()
 		if not target:
 			user.username = parsers[hard_fields[0]](body[hard_fields[0]])
-			old_file_path = os.path.join('static/profilephotos', user.profilephoto)
-			new_file_name = f"{user.username}{os.path.splitext(user.profilephoto)[1]}"
-			new_file_path = os.path.join('static/profilephotos', new_file_name)
-			if default_storage.exists(old_file_path):
-				with default_storage.open(old_file_path) as old_file:
-					default_storage.save(new_file_path, old_file)
-				default_storage.delete(old_file_path)
-				user.profilephoto = new_file_name
-	if parsers[hard_fields[1]](body[hard_fields[1]]) and check_password(body[hard_fields[1]], user.password):
+	if request.FILES:
+		file = {}
+		for key in request.FILES:
+			file[key] = request.FILES[key]
+		if 'profilephoto' in file.keys() and file['profilephoto'].content_type.startswith('image/'):
+			if user.profilephoto != file['profilephoto']:
+				user.profilephoto = file['profilephoto']
+	if parsers[hard_fields[1]](body[hard_fields[1]]) and check_password(body[hard_fields[1]], user.password) and not check_password(body[hard_fields[2]], user.password):
 		user.password = parsers[hard_fields[2]](body[hard_fields[2]])
 	user.save()
 	return JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
