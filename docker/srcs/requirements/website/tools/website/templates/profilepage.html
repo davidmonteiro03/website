@@ -1,11 +1,11 @@
 {% if userdata %}
-  <div class="mx-2 mt-2">
+  <div class="mx-2 mx-sm-3 mx-md-4 mx-lg-5 mt-3">
     <div class="d-flex flex-column flex-sm-row align-items-center">
       <div class="ratio ratio-1x1 ft_profile">
         {% load static %}
         <img class="img-fluid object-fit-cover rounded-circle" src="{% static 'profilephotos/'|add:userdata.profilephoto %}" alt="profilephoto" />
       </div>
-      <div class="ms-sm-3 mt-3 mt-sm-0 text-center text-sm-start">
+      <div class="ms-sm-4 mt-3 mt-sm-0 text-center text-sm-start">
         <div class="d-flex flex-column">
           <div class="d-flex flex-column">
             <span class="ft_span">Name</span>
@@ -23,8 +23,7 @@
       </div>
     </div>
   </div>
-  <hr />
-  <div class="mx-2 mt-2">
+  <div class="mx-2 mx-sm-3 mx-md-4 mx-lg-5 mt-4">
     <div class="ft_span mx-1 text-truncate">Update data</div>
     <form class="form mt-3" onsubmit="updateUserData(event)">
       <div class="d-flex flex-column flex-sm-row">
@@ -38,6 +37,11 @@
         <input name="oldpassword" type="password" class="form-control ft_input text-truncate text-center text-sm-start" placeholder="type your old password" autocomplete="off" />
         <input name="newpassword" type="password" class="form-control ft_input text-truncate text-center text-sm-start mt-2 mt-sm-0 ms-sm-2" placeholder="type a new password" autocomplete="off" />
       </div>
+	  {% comment %}
+      <div class="d-flex flex-column flex-sm-row mt-2">
+        <input id="profilephoto" name="profilephoto" type="file" class="form-control ft_input text-truncate text-center text-sm-start" />
+      </div>
+	  {% endcomment %}
       <div class="mt-2">
         <input type="submit" class="form-control btn btn-success ft_input text-truncate" value="Save Changes" />
       </div>
