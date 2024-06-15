@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	let currentPage = 'index';
 
-	function changePage(page = 'index') {
-		updatePageContent(page);
+	function changePage(page = 'index', data = null) {
+		updatePageContent(page, data);
 		if (currentPage === page) return;
 		currentPage = page;
 		if (currentPage === 'index') {
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	}
 
-	window.changePage = (event, page = 'index') => {
+	window.changePage = (event, page = 'index', data = null) => {
 		event.preventDefault();
-		changePage(page);
+		changePage(page, data);
 	};
 
 	window.onpopstate = (event) => {

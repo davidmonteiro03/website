@@ -1,4 +1,4 @@
-async function loadElement(element, type, url = 'index') {
+async function loadElement(element, type, url = 'index', data = null) {
 	if (document.cookie === '' || element === null) {
 		return;
 	}
@@ -10,16 +10,17 @@ async function loadElement(element, type, url = 'index') {
 		},
 		body: JSON.stringify({
 			'type': type,
-			'file': url + '.html'
+			'file': url + '.html',
+			'data': data
 		})
 	});
 	if (!response.ok) return;
 	const content = await response.json();
 	element.innerHTML = content.html;
 }
-function updatePageContent(page = 'index') {
-	loadElement(navbar, 'navbar', 'navbar');
-	loadElement(app, 'app', page);
-	loadElement(modal, 'modal', 'modal');
-	loadElement(footer, 'footer', 'footer');
+function updatePageContent(page = 'index', data = null) {
+	loadElement(navbar, 'navbar', 'navbar', data);
+	loadElement(app, 'app', page, data);
+	loadElement(modal, 'modal', 'modal', data);
+	loadElement(footer, 'footer', 'footer', data);
 }

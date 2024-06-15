@@ -2,10 +2,10 @@
 
 {% block content %}
   {% csrf_token %}
-  <body>
+  <body class="d-flex flex-column vh-100">
     <div id="navbar"></div>
     <div id="app"></div>
     <div id="modal"></div>
-    <div id="footer"></div>
+    <footer id="footer" class="footer mt-auto"></footer>
   </body>
 {% endblock %}

@@ -8,22 +8,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         {% if userdata %}
-          <li class="nav-item d-flex flex-sm-row">
-            <button onclick="changePage(event, 'profilepage')" class="btn btn-primary ft_button mt-1 mt-sm-0">Profile</button>
+          <li class="nav-item">
+            <button onclick="changePage(event, 'profilepage')" class="btn btn-primary ft_button mt-1 mt-sm-0 w-100">Profile</button>
           </li>
         {% endif %}
       </ul>
       <ul class="navbar-nav">
         {% if userdata %}
-          <li class="nav-item d-flex flex-sm-row">
-            <button class="btn btn-primary ft_button mt-2 mt-sm-0" onclick="signOut(event)">Sign Out</button>
+          <li class="nav-item">
+            <button class="btn btn-primary ft_button mt-2 mt-sm-0 w-100" onclick="signOut(event)">Sign Out</button>
           </li>
         {% else %}
-          <li class="nav-item d-flex flex-sm-row">
-            <button class="btn btn-primary ft_button mt-1 mt-sm-0" data-bs-toggle="modal" data-bs-target="#signupFormModal">Sign Up</button>
+          <li class="nav-item">
+            <button class="btn btn-primary ft_button mt-1 mt-sm-0 w-100" data-bs-toggle="modal" data-bs-target="#signupFormModal">Sign Up</button>
           </li>
-          <li class="nav-item d-flex flex-sm-row">
-            <button class="btn btn-primary ft_button ms-sm-2 mt-2 mt-sm-0" data-bs-toggle="modal" data-bs-target="#signinFormModal">Sign In</button>
+          <li class="nav-item">
+            <button class="btn btn-primary ft_button ms-sm-2 mt-2 mt-sm-0 w-100" data-bs-toggle="modal" data-bs-target="#signinFormModal">Sign In</button>
           </li>
         {% endif %}
       </ul>

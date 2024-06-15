@@ -29,7 +29,7 @@ def main(request):
 	if request.body == None or request.body == b'':
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	body = json.loads(request.body)
-	fields = ['type', 'file']
+	fields = ['type', 'file', 'data']
 	if set(fields) != set(body.keys()):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	valid_types = ['navbar', 'app', 'modal', 'footer']
@@ -37,5 +37,6 @@ def main(request):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	if not body['file']:
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
+	json_data['reqdata'] = body['data']
 	html = loader.render_to_string(body['file'], context=json_data)
 	return JsonResponse({'success': http.HTTPStatus(200).phrase, 'html': html}, status=200)

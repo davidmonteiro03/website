@@ -55,3 +55,10 @@ a:hover {
 .ft_error {
 	font-size: 16px;
 }
+
+.ft_profile {
+	max-width: 250px;
+	max-height: 250px;
+	min-width: 75px;
+	min-height: 75px;
+}
