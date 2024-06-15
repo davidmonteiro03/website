@@ -62,7 +62,7 @@ def signin(request):
 	cookies = {}
 	for key in request.COOKIES:
 		cookies[key] = request.COOKIES[key]
-	if 'token' in cookies.keys():
+	if cookies == {} or 'token' in cookies.keys():
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	if request.body == b'':
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
@@ -86,7 +86,7 @@ def signout(request):
 	cookies = {}
 	for key in request.COOKIES:
 		cookies[key] = request.COOKIES[key]
-	if 'token' not in cookies.keys():
+	if cookies == {} or 'token' not in cookies.keys():
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401)
 	Session.objects.filter(session_token=cookies['token']).delete()
 	response = JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
