@@ -145,6 +145,7 @@ def update(request):
 			file[key] = request.FILES[key]
 		if 'profilephoto' in file.keys() and file['profilephoto'].content_type.startswith('image/'):
 			if user.profilephoto != file['profilephoto']:
+				default_storage.delete(user.profilephoto.name)
 				user.profilephoto = file['profilephoto']
 	if parsers[hard_fields[1]](body[hard_fields[1]]) and check_password(body[hard_fields[1]], user.password) and not check_password(body[hard_fields[2]], user.password):
 		user.password = parsers[hard_fields[2]](body[hard_fields[2]])
