@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.template import loader
-from django.views.decorators.http import require_POST
 from django.forms.models import model_to_dict
-from backend.models import Users, Sessions
+from backend.models import Session
 import json, http
 
 # Create your views here.
@@ -20,7 +19,7 @@ def model_to_json(model):
 
 def main(request):
 	token = request.COOKIES.get('token')
-	session = Sessions.objects.select_related('user').filter(session_token=token).first()
+	session = Session.objects.select_related('user').filter(session_token=token).first()
 	json_data = {}
 	if token and session:
 		json_data['userdata'] = model_to_json(session.user)
