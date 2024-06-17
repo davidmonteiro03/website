@@ -23,9 +23,9 @@ class User(models.Model):
 				old_file_path = self.profilephoto.path
 				new_filename = f"{self.username}.{self.profilephoto.name.split('.')[-1]}"
 				new_file_path = os.path.join(os.path.dirname(old_file_path), new_filename)
-
 				if default_storage.exists(old_file_path):
-					default_storage.delete(new_file_path)
+					if default_storage.exists(new_file_path):
+						default_storage.delete(new_file_path)
 					default_storage.save(new_file_path, default_storage.open(old_file_path))
 					default_storage.delete(old_file_path)
 				self.profilephoto.name = os.path.join('profilephotos', new_filename)
