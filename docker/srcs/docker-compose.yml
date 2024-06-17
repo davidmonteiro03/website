@@ -4,10 +4,21 @@ networks:
     driver: bridge
 
 services:
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres
+  #   build: ./requirements/postgres
+  #   ports:
+  #     - 5432:5432
+  #   networks:
+  #     - webnet
+  #   restart: unless-stopped
   website:
     container_name: website
     image: website
     build: ./requirements/website
+    # depends_on:
+    #   - postgres
     ports:
       - 5000:5000
     networks:
