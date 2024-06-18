@@ -18,6 +18,6 @@
 
 ## Execute in host machine
 ### Dependences
-```sudo apt update```
-```sudo apt install -y python3 python3-pip python-is-python3```
+```sudo apt update```<br>
+```sudo apt install -y python3 python3-pip python-is-python3```<br>
 ```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```
