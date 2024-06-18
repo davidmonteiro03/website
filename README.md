@@ -30,7 +30,7 @@ Run ```make -S docker fclean``` in the root of this repository
 Run ```make -S docker re``` in the root of this repository
 ### run
 Open your browser and type ```http://localhost:<port>```<br>
-> Note that ```<port>``` must be the ```$PORT``` value you setted up in ```.env``` file
+> Note that `<port>` must be the ```$PORT``` value you setted up in ```.env``` file
 
 ## Execute in host machine
 ### setup
