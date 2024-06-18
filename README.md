@@ -2,14 +2,14 @@
 <p>Some information about this... :)</p>
 
 ## Download this repository
-```git clone https://github.com/davidmonteiro03/website.git```
+Run ```git clone https://github.com/davidmonteiro03/website.git``` in your terminal
 
 ## Dependences
-```sudo apt update```<br>
-```sudo snap install docker```<br>
-```sudo apt install -y python3 python3-pip python-is-python3```<br>
-```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```<br><br>
-You must create a .env file in ./docker/srcs/ directory and setup the following variables:
+Run ```sudo apt update``` in your terminal<br>
+Run ```sudo snap install docker``` in your terminal<br>
+Run ```sudo apt install -y python3 python3-pip python-is-python3``` in your terminal<br>
+Run ```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt``` in your terminal<br><br>
+Create a ```.env``` file in ```./docker/srcs/``` directory and setup teh following variables:
 - PORT
 - DJANGO_SUPERUSER_USERNAME
 - DJANGO_SUPERUSER_EMAIL
