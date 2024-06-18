@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.template import loader
 from django.forms.models import model_to_dict
-from backend.models import Session
+from backend.models import Session, ApiLink
 import json, http
 from django.conf import settings
 
@@ -24,6 +24,9 @@ def main(request):
 	json_data = {}
 	if token and session:
 		json_data['userdata'] = model_to_json(session.user)
+		json_data['api_options'] = [model_to_json(api) for api in ApiLink.objects.all()]
+		if json_data['api_options'] == []:
+			del json_data['api_options']
 		json_data['MEDIA_URL'] = settings.MEDIA_URL
 	if request.method != 'POST':
 		return render(request, 'main.html', context=json_data)

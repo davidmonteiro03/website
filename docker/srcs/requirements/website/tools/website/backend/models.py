@@ -35,3 +35,8 @@ class Session(models.Model):
 	id = models.AutoField(primary_key=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	session_token = models.CharField(max_length=255)
+
+class ApiLink(models.Model):
+	id = models.AutoField(primary_key=True)
+	link = models.CharField(max_length=255)
+	name = models.CharField(max_length=255)
