@@ -17,30 +17,30 @@ You must create a .env file in ./docker/srcs/ directory and setup the following 
 
 ## Execute with Docker
 ### build
-```make -S docker```
+Run ```make -S docker``` in the root of this repository
 ### up
-```make -S docker up```
+Run ```make -S docker up``` in the root of this repository
 ### down
-```make -S docker down```
+Run ```make -S docker down``` in the root of this repository
 ### clean
-```make -S docker clean```
+Run ```make -S docker clean``` in the root of this repository
 ### fclean
-```make -S docker fclean```
+Run ```make -S docker fclean``` in the root of this repository
 ### re
-```make -S docker re```
+Run ```make -S docker re``` in the root of this repository
 ### run
-Open your browser and type ```http://localhost:<port>```
+Open your browser and type ```http://localhost:<port>```<br>
 > Note that ```<port>``` must be the ```$PORT``` value you setted up in .env file
 
 ## Execute in host machine
 ### setup
-```./setup.sh```
+Run ```./setup.sh``` in the root of this repository
 ### run
 Go to ```./docker/srcs/requirements/website/tools/website``` directory
-```python manage.py runserver 0.0.0.0:<port>```
+Run ```python manage.py runserver 0.0.0.0:<port>```
 Open your browser and type ```http://localhost:<port>```
 > Note that ```<port>``` must be the port you want to allow to run this project
 ### clean
-```./clean.sh```
+Run ```./clean.sh``` in the root of this repository
 ### info
-```./info.sh```
+Run ```./info.sh``` in the root of this repository
