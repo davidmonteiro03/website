@@ -23,6 +23,7 @@ async function signUpFormHelper(input) {
 	}
 
 	async function searchClient() {
+		if (csrftoken === null) return;
 		const data = {};
 		data[name] = value;
 		const response = await fetch('/backend/getuser/', {
@@ -43,7 +44,7 @@ async function signUpFormHelper(input) {
 		if (!value.match(/^[^\p{P}\p{S}\p{N}\p{C}\p{Z}]+$/gu)) return error = "Name must contain only letters.";
 	}
 
-	async function usernamesHelper() {
+	async function usernameHelper() {
 		if (value.length < 3) return error = "Username must be at least 3 characters long.";
 		if (value.length > 32) return error = "Username must be at most 32 characters long.";
 		if (!value.match(/^[a-z0-9_.-]+$/)) return error = "Username must contain only lowercase letters, numbers, and the characters '.', '_', and '-'.";
@@ -116,7 +117,7 @@ async function signUpFormHelper(input) {
 			namesHelper();
 			break;
 		case 'username':
-			await usernamesHelper();
+			await usernameHelper();
 			break;
 		case 'email':
 			await emailHelper();

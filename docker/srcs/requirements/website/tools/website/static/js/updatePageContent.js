@@ -16,9 +16,9 @@ async function loadElement(element, type, url = 'index', data = null) {
 	const content = await response.json();
 	element.innerHTML = content.html;
 }
-function updatePageContent(page = 'index', data = null) {
-	loadElement(navbar, 'navbar', 'navbar', data);
-	loadElement(app, 'app', page, data);
-	loadElement(modal, 'modal', 'modal', data);
-	loadElement(footer, 'footer', 'footer', data);
+function updatePageContent(page = 'index') {
+	loadElement(navbar, 'navbar', 'navbar', apiData);
+	loadElement(app, 'app', page, apiData);
+	loadElement(modal, 'modal', 'modal', apiData);
+	loadElement(footer, 'footer', 'footer', apiData);
 }

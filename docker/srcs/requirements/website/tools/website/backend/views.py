@@ -1,4 +1,4 @@
-import http, os, json
+import http, json, requests
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse

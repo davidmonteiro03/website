@@ -3,6 +3,7 @@ let app = null;
 let modal = null;
 let footer = null;
 let csrftoken = null;
+let apiData = null;
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	event.preventDefault();
@@ -18,8 +19,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	let currentPage = 'index';
 
-	function changePage(page = 'index', data = null) {
-		updatePageContent(page, data);
+	function changePage(page = 'index') {
+		updatePageContent(page);
 		if (currentPage === page) return;
 		currentPage = page;
 		if (currentPage === 'index') {
@@ -29,9 +30,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		}
 	}
 
-	window.changePage = (event, page = 'index', data = null) => {
+	window.changePage = (event, page = 'index') => {
 		event.preventDefault();
-		changePage(page, data);
+		changePage(page);
 	};
 
 	window.onpopstate = (event) => {

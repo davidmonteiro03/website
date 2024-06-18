@@ -11,14 +11,14 @@
           <li class="nav-item">
             <button onclick="changePage(event, 'profilepage')" class="btn btn-primary ft_button mt-1 mt-sm-0 w-100">Profile</button>
           </li>
-          {% if api_options %}
+          {% if api_links %}
             <li class="nav-item">
               <div class="dropdown">
                 <button class="dropdown-toggle btn btn-primary ft_button mt-2 mt-sm-0 ms-sm-2 w-100" type="button" id="apiLinks" data-bs-toggle="dropdown" aria-expanded="false">API</button>
                 <ul class="dropdown-menu" aria-labelledby="apiLinks">
-                  {% for option in api_options %}
+                  {% for link in api_links %}
                     <li>
-                      <a class="dropdown-item" {% comment %} href="{{ option.link }}" {% endcomment %}>{{ option.name }}</a>
+                      <a class="dropdown-item text-center text-sm-start" onclick="loadApiData(event, '{{ link.link }}')">{{ link.name }}</a>
                     </li>
                   {% endfor %}
                 </ul>

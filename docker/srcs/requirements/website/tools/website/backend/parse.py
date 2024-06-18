@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import make_password
+import json
 
 def name(name: str) -> str:
 	name = name.strip()
@@ -70,3 +71,12 @@ def password(password: str) -> str:
 	if not any(char in "!@#$%^&*()_+-=[]{}|;:,.<>?/" for char in password):
 		return None
 	return make_password(password)
+
+def ligaportugal(data):
+	try:
+		ret_data = data[0]['Classificacoes']
+		for club in ret_data:
+			club['DiferencaGolos'] = club['GolosMarcados'] - club['GolosSofridos']
+		return ret_data
+	except:
+		return None
