@@ -55,8 +55,10 @@ async function signUpFormHelper(input) {
 		if (value.length < 5) return error = "Email must be at least 5 characters long.";
 		if (value.length > 97) return error = "Email must be at most 97 characters long.";
 		let main_values = ft_split(value, '@');
+		let at_count = ft_strcntchr(value, '@');
 		let main_count = main_values.length;
-		if (main_count !== 2) return error = "Email must contain exactly one '@'.";
+		if (at_count !== 1) return error = "Email must contain exactly one '@'.";
+		if (main_count !== 2) return error = "Email must contain a username and a domain.";
 		if (main_values[0].length < 3) return error = "Email must contain a username of at least 3 characters long.";
 		if (main_values[0].length > 32) return error = "Email must contain a username of at most 32 characters long.";
 		if (!main_values[0].match(/^[a-z0-9_.-]+$/)) return error = "Email must contain a username with only lowercase letters, numbers, and the characters '.', '_', and '-'.";
@@ -68,11 +70,7 @@ async function signUpFormHelper(input) {
 		if (dot_count !== domain_count - 1) return error = "Email must contain only one '.' between each domain.";
 		if (main_values[1].length < 2) return error = "Email must contain a domain of at least 2 characters long.";
 		if (main_values[1].length > 64) return error = "Email must contain a domain of at most 64 characters long.";
-		for (let i = 0; i < domain_count; i++) {
-			if (!domain_values[i].match(/^[a-z0-9]+$/)) {
-				return error = "Email must contain a domain with only lowercase letters and numbers.";
-			}
-		}
+		for (let i = 0; i < domain_count; i++) if (!domain_values[i].match(/^[a-z0-9]+$/)) return error = "Email must contain a domain with only lowercase letters and numbers.";
 		await searchClient();
 	}
 

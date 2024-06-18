@@ -1,12 +1,10 @@
 async function loadElement(element, type, url = 'index', data = null) {
-	if (document.cookie === '' || element === null) {
-		return;
-	}
+	if (csrftoken === null || element === null) return;
 	const response = await fetch('/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRFToken': document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1]
+			'X-CSRFToken': csrftoken
 		},
 		body: JSON.stringify({
 			'type': type,
