@@ -36,7 +36,8 @@ Open your browser and type ```http://localhost:<port>```
 ### setup
 ```./setup.sh```
 ### run
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port> && cd ../../../../../..```
+Go to ```./docker/srcs/requirements/website/tools/website``` directory
+```python manage.py runserver 0.0.0.0:<port>```
 Open your browser and type ```http://localhost:<port>```
 > Note that ```<port>``` must be the port you want to allow to run this project
 ### clean
