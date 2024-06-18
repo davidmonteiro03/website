@@ -3,4 +3,3 @@ djangorestframework
 djangorestframework-simplejwt
 pillow
 whitenoise
-django-storages
