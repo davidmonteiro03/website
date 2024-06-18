@@ -2,4 +2,4 @@
 
 ## Run command
 
-make -C docker
+```make -C docker```
