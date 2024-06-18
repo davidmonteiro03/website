@@ -17,17 +17,17 @@ Create a `.env` file in `./docker/srcs/` directory and setup the following varia
 
 ## Execute with Docker
 ### build
-Run `make -S docker` in the root of this repository
+Run `make -C docker` in the root of this repository
 ### up
-Run `make -S docker up` in the root of this repository
+Run `make -C docker up` in the root of this repository
 ### down
-Run `make -S docker down` in the root of this repository
+Run `make -C docker down` in the root of this repository
 ### clean
-Run `make -S docker clean` in the root of this repository
+Run `make -C docker clean` in the root of this repository
 ### fclean
-Run `make -S docker fclean` in the root of this repository
+Run `make -C docker fclean` in the root of this repository
 ### re
-Run `make -S docker re` in the root of this repository
+Run `make -C docker re` in the root of this repository
 ### run
 Open your browser and type `http://localhost:<port>`<br>
 > Note that `<port>` must be the `$PORT` value you setted up in `.env` file
