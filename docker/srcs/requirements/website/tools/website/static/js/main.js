@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	modal = document.getElementById('modal');
 	footer = document.getElementById('footer');
 
-	if (!(document.cookie === '')) {
+	if (document.cookie !== '') {
 		let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
 		csrftoken = tmp.split('=')[1];
 	}

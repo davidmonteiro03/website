@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.template import loader
 from django.forms.models import model_to_dict
-from backend.models import Session, ApiLink
+from backend.models import Session
+from api.models import ApiLink
 import json, http
 from django.conf import settings
 
@@ -42,9 +43,9 @@ def main(request):
 	if not body['file']:
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	json_data['api_data'] = {}
-	json_data['api_data'][body['file'].split('.')[0]] = body['data']
+	json_data['api_data'][body['file']] = body['data']
 	try:
-		html = loader.render_to_string(body['file'], context=json_data)
+		html = loader.render_to_string(body['file'] + '.html', context=json_data)
 		return JsonResponse({'success': http.HTTPStatus(200).phrase, 'html': html}, status=200)
 	except:
 		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404)

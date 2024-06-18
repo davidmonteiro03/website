@@ -8,7 +8,7 @@ async function loadElement(element, type, url = 'index', data = null) {
 		},
 		body: JSON.stringify({
 			'type': type,
-			'file': url + '.html',
+			'file': url,
 			'data': data
 		})
 	});

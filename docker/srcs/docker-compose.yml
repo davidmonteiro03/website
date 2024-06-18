@@ -17,10 +17,12 @@ services:
     container_name: website
     image: website
     build: ./requirements/website
+    env_file:
+      - .env
     # depends_on:
     #   - postgres
     ports:
-      - 5000:5000
+      - $HOSTPORT:$HOSTPORT
     networks:
       - webnet
     restart: unless-stopped

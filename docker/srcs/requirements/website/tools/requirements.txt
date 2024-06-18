@@ -2,4 +2,4 @@ django
 djangorestframework
 djangorestframework-simplejwt
 pillow
-whitenoise
+requests
