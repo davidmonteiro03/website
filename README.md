@@ -1,24 +1,24 @@
-# About
+## About
 <p>Some information about this... :)</p>
 
-# Dependences
+## Dependences
 ```sudo snap install docker```
 ```sudo apt update```<br>
 ```sudo apt install -y python3 python3-pip python-is-python3```<br>
 ```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```
 
-# Execute with Docker
-## build
+## Execute with Docker
+### build
 ```make -S docker```
-## up
+### up
 ```make -S docker up```
-## down
+### down
 ```make -S docker down```
-## clean
+### clean
 ```make -S docker clean```
-## fclean
+### fclean
 ```make -S docker fclean```
-## re
+### re
 ```make -S docker re```
 
-# Execute in host machine
+## Execute in host machine
