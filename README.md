@@ -1,6 +1,9 @@
 ## About
 <p>Some information about this... :)</p>
 
+## Download this repository
+```git clone https://github.com/davidmonteiro03/website.git```
+
 ## Dependences
 ```sudo apt update```<br>
 ```sudo snap install docker```<br>
