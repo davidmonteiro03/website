@@ -20,5 +20,13 @@
 ```make -S docker fclean```
 ### re
 ```make -S docker re```
+### run
+Open your browser and type ```http://localhost:<port>/```
 
 ## Execute in host machine
+### setup
+```./setup.sh```
+### run
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port>```
+##
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port>```
