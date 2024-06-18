@@ -1,10 +1,10 @@
 import http, json, requests
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET
 from django.http import JsonResponse
 from . import parse
 
 # Create your views here.
-@require_POST
+@require_GET
 def ligaportugal(request):
 	response = requests.get('https://www.ligaportugal.pt/pt/liga/standings/1')
 	try:
