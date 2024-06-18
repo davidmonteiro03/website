@@ -29,14 +29,16 @@ You must create a .env file in ./docker/srcs/ directory and setup the following 
 ### re
 ```make -S docker re```
 ### run
-Open your browser and type ```http://localhost:$PORT```
-> Note that $PORT must be the value you setted up in .env file
+Open your browser and type ```http://localhost:<port>```
+> Note that ```<port>``` must be the ```$PORT``` value you setted up in .env file
 
 ## Execute in host machine
 ### setup
 ```./setup.sh```
 ### run
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver <host>:<port>```
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port>```
+Open your browser and type ```http://localhost:<port>```
+> Note that ```<port>``` must be the port you want to allow to run this project
 ### clean
 ```./clean.sh```
 ### info
