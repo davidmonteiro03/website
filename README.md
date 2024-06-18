@@ -33,7 +33,7 @@ Open your browser and type ```http://localhost:{HOSTPORT value}```
 ```./setup.sh```
 ### run
 ```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver <host>:<port>```
-## clean
+### clean
 ```./clean.sh```
-## info
+### info
 ```./info.sh```
