@@ -5,7 +5,7 @@
 ```sudo snap install docker```
 ```sudo apt update```<br>
 ```sudo apt install -y python3 python3-pip python-is-python3```<br>
-```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```<br>
+```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```<br><br>
 You must create a .env file in ./docker/srcs/ directory and setup the following variables:
 - HOSTPORT
 - DJANGO_SUPERUSER_USERNAME
