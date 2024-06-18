@@ -1,6 +1,12 @@
 # Website
+## About
 <p>Some information about this... :)</p>
 
-## Run command
-
-```make -C docker```
+## Commands
+### Run
+- build
+```make -S docker```
+- update
+```make -S docker up```
+- down
+```make -S docker down```
