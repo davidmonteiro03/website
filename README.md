@@ -3,6 +3,8 @@
 <p>Some information about this... :)</p>
 
 ## Execute with Docker
+### Dependences
+```sudo snap install docker```
 ### build
 ```make -S docker```
 ### up
