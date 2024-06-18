@@ -3,8 +3,7 @@
 <p>Some information about this... :)</p>
 
 ## Commands
-### Run
-- build
+### build
 ```make -S docker```
 - update
 ```make -S docker up```
