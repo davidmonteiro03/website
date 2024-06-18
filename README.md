@@ -2,8 +2,8 @@
 <p>Some information about this... :)</p>
 
 ## Dependences
-```sudo snap install docker```<br>
 ```sudo apt update```<br>
+```sudo snap install docker```<br>
 ```sudo apt install -y python3 python3-pip python-is-python3```<br>
 ```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```<br><br>
 You must create a .env file in ./docker/srcs/ directory and setup the following variables:
@@ -26,12 +26,12 @@ You must create a .env file in ./docker/srcs/ directory and setup the following 
 ### re
 ```make -S docker re```
 ### run
-Open your browser and type ```http://localhost:<port>```
+Open your browser and type ```http://localhost:{HOSTPORT value}```
 
 ## Execute in host machine
 ### setup
 ```./setup.sh```
 ### run
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port>```
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:{any allowed port}```
 ##
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:<port>```
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:{any allowed port}```
