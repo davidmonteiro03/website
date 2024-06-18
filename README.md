@@ -32,6 +32,8 @@ Open your browser and type ```http://localhost:{HOSTPORT value}```
 ### setup
 ```./setup.sh```
 ### run
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:{any allowed port}```
-##
-```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver 0.0.0.0:{any allowed port}```
+```cd ./docker/srcs/requirements/website/tools/website && python manage.py runserver <host>:<port>```
+## clean
+```./clean.sh```
+## info
+```./info.sh```
