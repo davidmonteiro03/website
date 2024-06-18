@@ -23,7 +23,11 @@ async function signUpFormHelper(input) {
 	}
 
 	async function searchClient() {
-		if (csrftoken === null) return;
+		if (document.cookie === '') return;
+		let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
+		if (tmp === null || tmp === '') return;
+		let csrftoken = tmp.split('=')[1];
+		if (csrftoken === null || csrftoken === '') return;
 		const data = {};
 		data[name] = value;
 		const response = await fetch('/backend/getuser/', {
@@ -137,7 +141,11 @@ async function signUpFormHelper(input) {
 
 async function signUp(event) {
 	event.preventDefault();
-	if (csrftoken === null) return;
+	if (document.cookie === '') return;
+	let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
+	if (tmp === null || tmp === '') return;
+	let csrftoken = tmp.split('=')[1];
+	if (csrftoken === null || csrftoken === '') return;
 	const form_data = new FormData(event.target);
 	const response = await fetch('/backend/signup/', {
 		method: 'POST',

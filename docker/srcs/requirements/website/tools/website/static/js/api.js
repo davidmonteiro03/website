@@ -1,10 +1,6 @@
-async function loadApiData(event, page = 'ligaportugal') {
+async function loadApiData(event, page) {
 	event.preventDefault();
-	if (csrftoken === null) return;
-	const response = await fetch(`/api/${page}/`, {
-		method: 'GET',
-		headers: { 'X-CSRFToken': csrftoken },
-	});
+	const response = await fetch(`/api/${page}/`);
 	if (!response.ok) return;
 	const content = await response.json();
 	apiData = content[page];

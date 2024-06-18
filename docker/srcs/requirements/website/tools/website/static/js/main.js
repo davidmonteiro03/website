@@ -2,7 +2,6 @@ let navbar = null;
 let app = null;
 let modal = null;
 let footer = null;
-let csrftoken = null;
 let apiData = null;
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -11,11 +10,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	app = document.getElementById('app');
 	modal = document.getElementById('modal');
 	footer = document.getElementById('footer');
-
-	if (document.cookie !== '') {
-		let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
-		csrftoken = tmp.split('=')[1];
-	}
 
 	let currentPage = 'index';
 

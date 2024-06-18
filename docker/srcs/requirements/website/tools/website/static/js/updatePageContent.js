@@ -1,5 +1,9 @@
 async function loadElement(element, type, url = 'index', data = null) {
-	if (csrftoken === null || element === null) return;
+	if (document.cookie === '' || element === null) return;
+	let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
+	if (tmp === null || tmp === '') return;
+	let csrftoken = tmp.split('=')[1];
+	if (csrftoken === null || csrftoken === '') return;
 	const response = await fetch('/', {
 		method: 'POST',
 		headers: {
