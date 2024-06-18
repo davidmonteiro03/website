@@ -10,7 +10,7 @@
 ```sudo apt install -y python3 python3-pip python-is-python3```<br>
 ```pip install -r ./docker/srcs/requirements/website/tools/requirements.txt```<br><br>
 You must create a .env file in ./docker/srcs/ directory and setup the following variables:
-- HOSTPORT
+- PORT
 - DJANGO_SUPERUSER_USERNAME
 - DJANGO_SUPERUSER_EMAIL
 - DJANGO_SUPERUSER_PASSWORD
@@ -29,7 +29,8 @@ You must create a .env file in ./docker/srcs/ directory and setup the following 
 ### re
 ```make -S docker re```
 ### run
-Open your browser and type ```http://localhost:{HOSTPORT value}```
+Open your browser and type ```http://localhost:$PORT```
+> Note that $PORT must be the value you setted up in .env file
 
 ## Execute in host machine
 ### setup

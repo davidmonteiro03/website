@@ -22,7 +22,7 @@ services:
     # depends_on:
     #   - postgres
     ports:
-      - $HOSTPORT:$HOSTPORT
+      - $PORT:$PORT
     networks:
       - webnet
     restart: unless-stopped
