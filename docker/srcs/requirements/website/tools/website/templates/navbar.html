@@ -18,7 +18,7 @@
                 <ul class="dropdown-menu" aria-labelledby="apiLinks">
                   {% for link in api_links %}
                     <li>
-                      <a class="dropdown-item text-center text-sm-start" onclick="loadApiData(event, '{{ link.link }}')">{{ link.name }}</a>
+                      <a class="dropdown-item text-center text-sm-start" onclick="changePage(event, '{{ link.link }}')">{{ link.name }}</a>
                     </li>
                   {% endfor %}
                 </ul>
