@@ -7,11 +7,9 @@ from django.contrib.auth.hashers import check_password
 from django.core.files.storage import default_storage
 from . import parse
 from .models import User, Session
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Create your views here.
 @require_POST
-@ensure_csrf_cookie
 def signup(request):
 	body = {}
 	for key in request.POST:
@@ -57,7 +55,6 @@ def signup(request):
 	return response
 
 @require_POST
-@ensure_csrf_cookie
 def signin(request):
 	cookies = {}
 	for key in request.COOKIES:
@@ -82,7 +79,6 @@ def signin(request):
 	return response
 
 @require_POST
-@ensure_csrf_cookie
 def signout(request):
 	cookies = {}
 	for key in request.COOKIES:
@@ -95,7 +91,6 @@ def signout(request):
 	return response
 
 @require_POST
-@ensure_csrf_cookie
 def getuser(request):
 	if request.body == b'':
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
@@ -112,7 +107,6 @@ def getuser(request):
 	return JsonResponse({'success': http.HTTPStatus(200).phrase}, status=200)
 
 @require_POST
-@ensure_csrf_cookie
 def update(request):
 	cookies = {}
 	for key in request.COOKIES:
