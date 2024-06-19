@@ -39,7 +39,7 @@ async function signUpFormHelper(input) {
 			body: JSON.stringify(data)
 		});
 		if (response.ok) return;
-		error = name.charAt(0).toUpperCase() + name.slice(1) + " already exists.";
+		error = `${name.charAt(0).toUpperCase() + name.slice(1)} already exists.`;
 	}
 
 	function namesHelper() {

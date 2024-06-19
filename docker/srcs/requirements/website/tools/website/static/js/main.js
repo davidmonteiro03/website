@@ -2,7 +2,6 @@ let navbar = null;
 let app = null;
 let modal = null;
 let footer = null;
-let apiData = null;
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	event.preventDefault();
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		if (currentPage === 'index') {
 			history.pushState({ page: currentPage }, null, '/');
 		} else {
-			history.pushState({ page: currentPage }, null, '/' + currentPage + '/');
+			history.pushState({ page: currentPage }, null, `/${currentPage}/`);
 		}
 	}
 
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			} else {
 				if (event.state.page === currentPage) return;
 				currentPage = event.state.page;
-				history.replaceState({ page: currentPage }, null, '/' + currentPage + '/');
+				history.replaceState({ page: currentPage }, null, `/${currentPage}/`);
 				updatePageContent(currentPage);
 			}
 		}

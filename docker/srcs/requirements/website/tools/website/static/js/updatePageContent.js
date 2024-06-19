@@ -21,8 +21,8 @@ async function loadElement(element, type, url = 'index', data = null) {
 	element.innerHTML = content.html;
 }
 function updatePageContent(page = 'index') {
-	loadElement(navbar, 'navbar', 'navbar', apiData);
-	loadElement(app, 'app', page, apiData);
-	loadElement(modal, 'modal', 'modal', apiData);
-	loadElement(footer, 'footer', 'footer', apiData);
+	loadElement(navbar, 'navbar', 'navbar');
+	loadElement(app, 'app', page);
+	loadElement(modal, 'modal', 'modal');
+	loadElement(footer, 'footer', 'footer');
 }

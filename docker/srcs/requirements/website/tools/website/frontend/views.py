@@ -4,7 +4,7 @@ from django.template import loader
 from django.forms.models import model_to_dict
 from backend.models import Session
 from api.models import ApiLink
-import json, http
+import json, http, requests
 from django.conf import settings
 
 # Create your views here.
@@ -43,9 +43,14 @@ def main(request):
 	if not body['file']:
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
 	json_data['api_data'] = {}
-	json_data['api_data'][body['file']] = body['data']
 	try:
-		html = loader.render_to_string(body['file'] + '.html', context=json_data)
+		response = requests.get(f'http://localhost:5000/api/{body["file"]}/')
+		coming_data = response.json()
+		json_data['api_data'][body['file']] = coming_data[body['file']]
+	except:
+		pass
+	try:
+		html = loader.render_to_string(f'{body["file"]}.html', context=json_data)
 		return JsonResponse({'success': http.HTTPStatus(200).phrase, 'html': html}, status=200)
 	except:
 		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404)
