@@ -35,12 +35,12 @@ Open your browser and type `http://localhost:<port>`<br>
 ## Execute in host machine
 ### setup
 Run `./setup.sh` in the root of this repository
+### clean
+Run `./clean.sh` in the root of this repository
+### info
+Run `./info.sh` in the root of this repository
 ### run
 Go to `./docker/srcs/requirements/website/tools/website` directory<br>
 Run `python manage.py runserver 0.0.0.0:<port>`<br>
 Open your browser and type `http://localhost:<port>`<br>
 > Note that `<port>` must be the port you want to allow to run this project
-### clean
-Run `./clean.sh` in the root of this repository
-### info
-Run `./info.sh` in the root of this repository
