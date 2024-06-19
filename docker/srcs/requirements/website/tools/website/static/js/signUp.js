@@ -30,7 +30,7 @@ async function signUpFormHelper(input) {
 		if (csrftoken === null || csrftoken === '') return;
 		const data = {};
 		data[name] = value;
-		const response = await fetch('/backend/getuser/', {
+		const response = await fetch('/auth/getuser/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ async function signUp(event) {
 	let csrftoken = tmp.split('=')[1];
 	if (csrftoken === null || csrftoken === '') return;
 	const form_data = new FormData(event.target);
-	const response = await fetch('/backend/signup/', {
+	const response = await fetch('/auth/signup/', {
 		method: 'POST',
 		headers: { 'X-CSRFToken': csrftoken },
 		body: form_data

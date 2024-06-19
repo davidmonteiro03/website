@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.template import loader
 from django.forms.models import model_to_dict
-from backend.models import Session
+from authentication.models import Session
 from api.models import ApiLink
 import json, http, requests
 from django.conf import settings

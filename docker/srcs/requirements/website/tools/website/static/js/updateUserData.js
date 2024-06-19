@@ -6,7 +6,7 @@ async function updateUserData(event) {
 	let csrftoken = tmp.split('=')[1];
 	if (csrftoken === null || csrftoken === '') return;
 	const form_data = new FormData(event.target);
-	const response = await fetch('/backend/update/', {
+	const response = await fetch('/auth/update/', {
 		method: 'POST',
 		headers: { 'X-CSRFToken': csrftoken },
 		body: form_data

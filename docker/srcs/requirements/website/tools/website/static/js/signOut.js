@@ -5,7 +5,7 @@ async function signOut(event) {
 	if (tmp === null || tmp === '') return;
 	let csrftoken = tmp.split('=')[1];
 	if (csrftoken === null || csrftoken === '') return;
-	const response = await fetch('/backend/signout/', {
+	const response = await fetch('/auth/signout/', {
 		method: 'POST',
 		headers: { 'X-CSRFToken': csrftoken }
 	});

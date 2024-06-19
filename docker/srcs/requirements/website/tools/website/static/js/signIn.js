@@ -8,7 +8,7 @@ async function signIn(event) {
 	const form_data = new FormData(event.target);
 	const json_data = {};
 	form_data.forEach((value, key) => { json_data[key] = value; });
-	const response = await fetch('/backend/signin/', {
+	const response = await fetch('/auth/signin/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
