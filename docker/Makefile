@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/20 20:03:54 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/20 20:08:58 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ fclean: clean
 	-@docker images -qa | xargs -r docker rmi 2>&1
 	@docker system prune -af
 
-rebuild: fclean build
+rerun: down up
+
+rebuild: fclean all
 
 .PHONY: all up down clean fclean re

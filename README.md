@@ -25,7 +25,7 @@
 
 ## Running with Docker
 ### All
-<p>To build the Docker environment, run the following command from the root of the repository:</p>
+<p>To build and start the Docker environment, run the following command from the root of the repository:</p>
 
 `make -C docker`
 
@@ -53,6 +53,11 @@
 <p>To perform a thorough clean-up, removing all Docker artifacts, execute:</p>
 
 `make -C docker fclean`
+
+### Rerun
+<p>To restart the Docker environment after cleaning, execute:</p>
+
+`make -C docker rerun`
 
 ### Rebuild
 <p>To rebuild the Docker environment from scratch, execute:</p>
