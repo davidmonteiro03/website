@@ -70,42 +70,37 @@ Ensure that `<port>` matches the `PORT` value specified in your `.env` file.
 
 </p>
 
-## Execute in host machine
-### setup
+## Running on the Host Machine
+### Setup
+<p>To set up the project directly on your host machine, execute the setup script from the root of the repository:<p>
+
+`./setup.sh`
+
+### Clean
+<p>To clean the environment, execute:</p>
+
+`./clean.sh`
+
+### Information
+<p>To display project information, execute:</p>
+
+`./info.sh`
+
+### Running the Application
+<p>To run the project directly on your host machine, navigate to the application directory:</p>
+
+`cd ./docker/srcs/requirements/website/tools/website`
+
+<p>Then, execute the following command to start the Django development server:</p>
+
+`python manage.py runserver 0.0.0.0:<port>`
+
+<p>Open your browser and navigate to:</p>
+
+`http://localhost:<port>`
+
 <p>
 
-Execute `./setup.sh` in the root of this repository
-
-</p>
-
-### clean
-<p>
-
-Execute `./clean.sh` in the root of this repository
-
-</p>
-
-### info
-<p>
-
-Execute `./info.sh` in the root of this repository
-
-</p>
-
-### run
-<p>
-
-Navigate to `./docker/srcs/requirements/website/tools/website` directory
-
-</p>
-<p>
-
-Execute `python manage.py runserver 0.0.0.0:<port>`
-
-</p>
-<p>
-
-Open your browser and type `http://localhost:<port>`
-> Note that `<port>` must be the port you want to allow to run this project
+Make sure `<port>` is set to the desired port number for running the project.
 
 </p>
