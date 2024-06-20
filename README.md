@@ -2,7 +2,7 @@
 <p>Some information about this... :)</p>
 
 ## Download this repository
-Run `git clone https://github.com/davidmonteiro03/website.git` in your terminal
+<p>Run <code>git clone https://github.com/davidmonteiro03/website.git</code> in your terminal</p>
 
 ## Dependences
 Run `sudo apt update` in your terminal<br>
