@@ -18,7 +18,7 @@ from .models import ApiLink # ApiLink model
 # :return: JSON response
 @require_GET # Require GET method
 def ligaportugal(request):
-	find_link = ApiLink.objects.filter(name='ligaportugal').first() # Find Liga Portugal link
+	find_link = ApiLink.objects.filter(link='ligaportugal').first() # Find Liga Portugal link
 	if not find_link: # Check if link does not exist
 		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
 	response = requests.get('https://www.ligaportugal.pt/pt/liga/standings/1') # Send GET request

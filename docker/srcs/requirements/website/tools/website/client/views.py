@@ -23,6 +23,10 @@ def model_to_json(model: Model):
 	result = {} # Initialize result dictionary
 	for key in target_dict.keys(): # Iterate over dictionary keys
 		result[key] = target_dict[key] # Add key-value pair to result dictionary
+	try: # Try to get token
+		result['token'] = model.token # Add token to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
 	if 'id' in result: # Check if 'id' key exists in result dictionary
 		del result['id'] # Delete 'id' key from result dictionary
 	if 'password' in result: # Check if 'password' key exists in result dictionary
@@ -47,7 +51,9 @@ def main(request):
 	if request.body == None or request.body == b'': # Check if request body is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	body = json.loads(request.body) # Load JSON data from request body
-	fields = ['type', 'file', 'data'] # Initialize fields
+	fields = ['type', 'file'] # Initialize fields
+	if 'api_data' in body.keys(): # Check if 'api_data' key exists in body
+		fields.append('api_data')
 	if set(fields) != set(body.keys()): # Check if fields are not in body
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	valid_types = ['navbar', 'app', 'modal', 'footer'] # Initialize valid types
@@ -55,20 +61,40 @@ def main(request):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
-	if body['data']: # Check if data exists
-		json_data['req_data'] = body['data'] # Add data to JSON data
-	json_data['api_data'] = {} # Initialize API data
-	try: # Try to get API data
-		response = requests.get(f'http://localhost:5000/api/{body["file"]}/') # Send GET request to API
-		resp_data = response.json() # Get JSON data from response
-		json_data['api_data'][body['file']] = resp_data['content'] # Add API data to JSON data
-	except: # Catch exceptions
-		pass # Pass
+	if body['type'] != 'app':
+		try:
+			html = loader.render_to_string(f'{body["file"]}.html', context=json_data) # Render template
+			return JsonResponse({ # Return JSON response
+				'success': http.HTTPStatus(200).phrase, # Success message
+				'html': html # HTML data
+			}, status=200) # Return success response
+		except:
+			return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404)
+	if 'api_data' in body.keys(): # Check if 'api_data' key exists in body
+		try: # Try to get API data
+			api_model_target = ApiLink.objects.filter(link=body['file']).first() # Get API model target
+			if not api_model_target: # Check if API model target does not exist
+				raise Exception # Raise exception
+			json_data['api_data'] = {} # Initialize API data
+			response = requests.get(f'http://localhost:{request.META["SERVER_PORT"]}/api/{body["file"]}/') # Send GET request to API
+			resp_data = response.json() # Get JSON data from response
+			json_data['api_data'][body['file']] = resp_data['content'] # Add API data to JSON data
+			html = loader.render_to_string(f'{body["file"]}.html', context=json_data) # Render template
+			return JsonResponse({ # Return JSON response
+				'success': http.HTTPStatus(200).phrase, # Success message
+				'html': html # HTML data
+			}, status=200) # Return success response
+		except: # Catch exceptions
+			return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
 	try: # Try to render template
+		api_model_target = ApiLink.objects.filter(link=body['file']).first() # Get API model target
+		if api_model_target: # Check if API model target does not exist
+			raise Exception # Raise exception
 		html = loader.render_to_string(f'{body["file"]}.html', context=json_data) # Render template
 		return JsonResponse({ # Return JSON response
-			'success': http.HTTPStatus(200).phrse, # Success message
+			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data
 		}, status=200) # Return success response
 	except: # Catch exceptions
 		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
+

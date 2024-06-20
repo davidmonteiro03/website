@@ -12,7 +12,7 @@ async function signIn(event) {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRFToken': csrftoken
+			'X-CSRFToken': csrftoken,
 		},
 		body: JSON.stringify(json_data)
 	});

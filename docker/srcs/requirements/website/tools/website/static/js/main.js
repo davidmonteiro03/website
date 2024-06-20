@@ -3,7 +3,7 @@ let app = null;
 let modal = null;
 let footer = null;
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', async (event) => {
 	event.preventDefault();
 	navbar = document.getElementById('navbar');
 	app = document.getElementById('app');
@@ -12,40 +12,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	let currentPage = 'index';
 
-	function changePage(page = 'index') {
-		updatePageContent(page);
+	async function changePage(page = 'index', api_data = null) {
+		if (await updatePageContent(page, api_data) === false) return;
 		if (currentPage === page) return;
 		currentPage = page;
 		if (currentPage === 'index') {
-			history.pushState({ page: currentPage }, null, '/');
+			history.pushState({ page: currentPage, api_data: api_data }, null, '/');
 		} else {
-			history.pushState({ page: currentPage }, null, `/${currentPage}/`);
+			history.pushState({ page: currentPage, api_data: api_data }, null, `/${currentPage}/`);
 		}
 	}
 
-	window.changePage = (event, page = 'index') => {
+	window.changePage = async (event, page = 'index', api_data = null) => {
 		event.preventDefault();
-		changePage(page);
+		await changePage(page, api_data);
 	};
 
-	window.onpopstate = (event) => {
+	window.onpopstate = async (event) => {
 		if (event.state === null) {
 			currentPage = 'index';
-			history.replaceState({ page: currentPage }, null, '/');
-			updatePageContent();
+			if (await updatePageContent() === false) return;
+			history.replaceState({ page: currentPage, api_data: null }, null, '/');
 		} else {
 			if (event.state.page === '/' || event.state.page === 'index') {
 				currentPage = 'index';
-				history.replaceState({ page: currentPage }, null, '/');
-				updatePageContent();
+				if (await updatePageContent() === false) return;
+				history.replaceState({ page: currentPage, api_data: null }, null, '/');
 			} else {
 				if (event.state.page === currentPage) return;
 				currentPage = event.state.page;
-				history.replaceState({ page: currentPage }, null, `/${currentPage}/`);
-				updatePageContent(currentPage);
+				if (await updatePageContent(currentPage, event.state.api_data) === false) return;
+				history.replaceState({ page: currentPage, api_data: event.state.api_data }, null, `/${currentPage}/`);
 			}
 		}
 	};
 
-	updatePageContent();
+	await updatePageContent();
 });
