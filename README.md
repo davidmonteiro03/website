@@ -15,6 +15,7 @@ Welcome to the repository! This document provides comprehensive instructions for
 <p>Before running the project, ensure you have the necessary dependencies installed by executing the following commands in your terminal:</p>
 
 1. Update your package list:
+
 `sudo apt update`
 
 <p>
