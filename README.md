@@ -11,11 +11,12 @@ Welcome to the repository! This document provides comprehensive instructions for
 `git clone https://github.com/davidmonteiro03/website.git`
 
 ## Dependences
-<p>
 
-Execute `sudo apt update` in your terminal
+<p>Before running the project, ensure you have the necessary dependencies installed by executing the following commands in your terminal:</p>
 
-</p>
+1. Update your package list:
+`sudo apt update`
+
 <p>
 
 Execute `sudo snap install docker` in your terminal
