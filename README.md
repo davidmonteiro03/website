@@ -10,10 +10,12 @@
 <p>Run <code>sudo apt install -y make python3 python3-pip python-is-python3</code> in your terminal</p>
 <p>Run <code>pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal</p>
 <p>Create a <code>.env</code> file in <code>./docker/srcs/</code> directory and setup the following variables:
+
 - <code>PORT</code>
 - <code>DJANGO_SUPERUSER_USERNAME</code>
 - <code>DJANGO_SUPERUSER_EMAIL</code>
 - <code>DJANGO_SUPERUSER_PASSWORD</code>
+
 </p>
 
 ## Execute with Docker
