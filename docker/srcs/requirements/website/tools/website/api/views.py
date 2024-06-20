@@ -1,20 +1,35 @@
-import http, json, requests
-from django.views.decorators.http import require_GET
-from django.http import JsonResponse
-from . import parse
+# import Python modules
+import http # HTTP status codes
+import json # JSON encoder and decoder
+import requests # HTTP requests
 
-# Create your views here.
-@require_GET
+# import Django modules
+from django.views.decorators.http import require_GET # Require GET method
+from django.http import JsonResponse # JSON response
+
+# import parse
+from . import parse # parse module
+
+# import models
+from .models import ApiLink # ApiLink model
+
+# Function to get Liga Portugal standings
+# :param request: HTTP request
+# :return: JSON response
+@require_GET # Require GET method
 def ligaportugal(request):
-	response = requests.get('https://www.ligaportugal.pt/pt/liga/standings/1')
-	try:
-		in_data = json.loads(response.text)
-		out_data = parse.ligaportugal(in_data)
-		if not out_data:
-			raise Exception
-		return JsonResponse({
-			'success': http.HTTPStatus(200).phrase,
-			'ligaportugal': out_data
-		}, status=200)
-	except:
-		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400)
+	find_link = ApiLink.objects.filter(name='ligaportugal').first() # Find Liga Portugal link
+	if not find_link: # Check if link does not exist
+		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
+	response = requests.get('https://www.ligaportugal.pt/pt/liga/standings/1') # Send GET request
+	try: # Try to parse response
+		in_data = json.loads(response.text) # Load JSON data from response
+		out_data = parse.ligaportugal(in_data) # Parse Liga Portugal data
+		if not out_data: # Check if data does not exist
+			raise Exception # Raise exception
+		return JsonResponse({ # Return JSON response
+			'success': http.HTTPStatus(200).phrase, # Success message
+			'content': out_data # Content data
+		}, status=200) # Return success response
+	except: # Catch exceptions
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response

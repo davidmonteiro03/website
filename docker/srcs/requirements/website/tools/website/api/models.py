@@ -1,7 +1,8 @@
-from django.db import models
+# import Django modules
+from django.db import models # Django models
 
-# Create your models here.
+# ApiLink model
 class ApiLink(models.Model):
-	id = models.AutoField(primary_key=True)
-	link = models.CharField(max_length=255)
-	name = models.CharField(max_length=255)
+	id = models.AutoField(primary_key=True) # primary key
+	link = models.CharField(max_length=255) # character field with a maximum length of 255 characters
+	name = models.CharField(max_length=255) # character field with a maximum length of 255 characters

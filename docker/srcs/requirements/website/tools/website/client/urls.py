@@ -1,6 +1,10 @@
-from django.urls import path
+# import Django modules
+from django.urls import path # Path
+
+# import views
 from . import views
 
+# urlpatterns
 urlpatterns = [
-	path('', views.main, name='main'),
+	path('', views.main, name='main'), # Main
 ]
