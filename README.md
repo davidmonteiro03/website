@@ -1,11 +1,24 @@
 ## About
-<p>Some information about this... :)</p>
+<p>
+
+Some information about this... :)
+
+</p>
 
 ## Download this repository
-<p>Run <code>git clone https://github.com/davidmonteiro03/website.git</code> in your terminal</p>
+<p>
+
+Run `git clone https://github.com/davidmonteiro03/website.git` in your terminal
+
+</p>
 
 ## Dependences
-<p>Run <code>sudo apt update</code> in your terminal</p>
+<p>
+
+Run `sudo apt update` in your terminal
+
+</p>
+
 <p>Run <code>sudo snap install docker</code> in your terminal</p>
 <p>Run <code>sudo apt install -y make python3 python3-pip python-is-python3</code> in your terminal</p>
 <p>Run <code>pip install -r ./docker/srcs/requirements/website/tools/requirements.txt</code> in your terminal</p>
