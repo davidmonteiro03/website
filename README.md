@@ -18,16 +18,22 @@
 ## Execute with Docker
 ### build
 <p>Run <code>make -C docker</code> in the root of this repository</p>
+
 ### up
 <p>Run <code>make -C docker up</code> in the root of this repository</p>
+
 ### down
 <p>Run <code>make -C docker down</code> in the root of this repository</p>
+
 ### clean
 <p>Run <code>make -C docker clean</code> in the root of this repository</p>
+
 ### fclean
 <p>Run <code>make -C docker fclean</code> in the root of this repository</p>
+
 ### re
 <p>Run <code>make -C docker re</code> in the root of this repository</p>
+
 ### run
 <p>Open your browser and type <code>http://localhost:&lt;port&gt;</code></p>
 <p>> Note that <code>&lt;port&gt;</code> must be the <code>$PORT</code> value you setted up in <code>.env</code> file</p>
