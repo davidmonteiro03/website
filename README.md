@@ -6,11 +6,9 @@ Welcome to the repository! This document provides comprehensive instructions for
 </p>
 
 ## Download this repository
-<p>
+<p>To clone this repository, execute the following command in your terminal:</p>
 
-Execute `git clone https://github.com/davidmonteiro03/website.git` in your terminal
-
-</p>
+`git clone https://github.com/davidmonteiro03/website.git`
 
 ## Dependences
 <p>
