@@ -31,8 +31,8 @@
 ### re
 <p>Run <code>make -C docker re</code> in the root of this repository</p>
 ### run
-<p>Open your browser and type <code>http://localhost:<port></code></p>
-<p>> Note that <code><port></code> must be the <code>$PORT</code> value you setted up in <code>.env</code> file</p>
+<p>Open your browser and type <code>http://localhost:&lt;port&gt;</code></p>
+<p>> Note that <code>&lt;port&gt;</code> must be the <code>$PORT</code> value you setted up in <code>.env</code> file</p>
 
 ## Execute in host machine
 ### setup
