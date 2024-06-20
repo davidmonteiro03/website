@@ -122,9 +122,12 @@ Run `./info.sh` in the root of this repository
 Go to `./docker/srcs/requirements/website/tools/website` directory
 
 </p>
+<p>
+
 Run `python manage.py runserver 0.0.0.0:<port>`
 
 </p>
+<p>
 
 Open your browser and type `http://localhost:<port>`
 > Note that `<port>` must be the port you want to allow to run this project
