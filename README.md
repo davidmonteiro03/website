@@ -1,19 +1,19 @@
-## About
-<p>Some information about this... :)</p>
+## Development status
+<p>This project is actively being developed. We are currently working on improving performance and adding new features to enhance user experience. Feel free to check out our recent commits and join the discussion in the issues section!
 
 ## Download this repository
 Run `git clone https://github.com/davidmonteiro03/website.git` in your terminal
 
 ## Dependences
-Run `sudo apt update` in your terminal<br>
-Run `sudo snap install docker` in your terminal<br>
-Run `sudo apt install -y make python3 python3-pip python-is-python3` in your terminal<br>
-Run `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal<br><br>
-Create a `.env` file in `./docker/srcs/` directory and setup the following variables:
-- `PORT`
+<p>Run `sudo apt update` in your terminal</p>
+<p>Run `sudo snap install docker` in your terminal</p>
+<p>Run `sudo apt install -y make python3 python3-pip python-is-python3` in your terminal</p>
+<p>Run `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal</p>
+<p>Create a `.env` file in `./docker/srcs/` directory and setup the following variables:</p>
+<p>- `PORT`
 - `DJANGO_SUPERUSER_USERNAME`
 - `DJANGO_SUPERUSER_EMAIL`
-- `DJANGO_SUPERUSER_PASSWORD`
+- `DJANGO_SUPERUSER_PASSWORD`</p>
 
 ## Execute with Docker
 ### build
