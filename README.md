@@ -44,5 +44,3 @@ Go to `./docker/srcs/requirements/website/tools/website` directory<br>
 Run `python manage.py runserver 0.0.0.0:<port>`<br>
 Open your browser and type `http://localhost:<port>`<br>
 > Note that `<port>` must be the port you want to allow to run this project
-
-<h1>aaaaaaaaaaa</h1>
