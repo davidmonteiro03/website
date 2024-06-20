@@ -9,6 +9,7 @@ from django.http import JsonResponse # JSON response
 from django.template import loader # Load a template
 from django.forms.models import model_to_dict # Convert a model instance to a dictionary
 from django.db.models import Model # Django model
+from django.db.models import Q # Django query
 from django.conf import settings # Django settings
 
 # import models
@@ -72,7 +73,10 @@ def main(request):
 			return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404)
 	if 'api_data' in body.keys(): # Check if 'api_data' key exists in body
 		try: # Try to get API data
-			api_model_target = ApiLink.objects.filter(link=body['file']).first() # Get API model target
+			api_model_target = ApiLink.objects.filter(
+				Q(link=body['file']) & Q(token=body['api_data']) # for now I can't use json sintax in django templates so it gets strings
+				# Q(link=body['file']) & Q(token=body['api_data']['token']) # in the future, if I could use json sintax in django templates, I would use this line
+			).first() # Get API model target
 			if not api_model_target: # Check if API model target does not exist
 				raise Exception # Raise exception
 			json_data['api_data'] = {} # Initialize API data
