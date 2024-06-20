@@ -10,27 +10,29 @@
 <p>Run <code>sudo apt install -y make python3 python3-pip python-is-python3</code> in your terminal</p>
 <p>Run <code>pip install -r ./docker/srcs/requirements/website/tools/requirements.txt</code> in your terminal</p>
 <p>Create a <code>.env</code> file in <code>./docker/srcs/</code> directory and setup the following variables:</p>
-<p>- <code>PORT`
+<p>
+- <code>PORT</code>
 - <code>DJANGO_SUPERUSER_USERNAME</code>
 - <code>DJANGO_SUPERUSER_EMAIL</code>
-- <code>DJANGO_SUPERUSER_PASSWORD</code></p>
+- <code>DJANGO_SUPERUSER_PASSWORD</code>
+</p>
 
 ## Execute with Docker
 ### build
-Run `make -C docker` in the root of this repository
+<p>Run <code>make -C docker</code> in the root of this repository</p>
 ### up
-Run `make -C docker up` in the root of this repository
+<p>Run <code>make -C docker up</code> in the root of this repository</p>
 ### down
-Run `make -C docker down` in the root of this repository
+<p>Run <code>make -C docker down</code> in the root of this repository</p>
 ### clean
-Run `make -C docker clean` in the root of this repository
+<p>Run <code>make -C docker clean</code> in the root of this repository</p>
 ### fclean
-Run `make -C docker fclean` in the root of this repository
+<p>Run <code>make -C docker fclean</code> in the root of this repository</p>
 ### re
-Run `make -C docker re` in the root of this repository
+<p>Run <code>make -C docker re</code> in the root of this repository</p>
 ### run
-Open your browser and type `http://localhost:<port>`<br>
-> Note that `<port>` must be the `$PORT` value you setted up in `.env` file
+<p>Open your browser and type <code>http://localhost:<port></code></p>
+<p>> Note that <code><port></code> must be the <code>$PORT</code> value you setted up in <code>.env</code> file</p>
 
 ## Execute in host machine
 ### setup
