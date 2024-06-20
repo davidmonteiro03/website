@@ -45,39 +45,88 @@ Create a `.env` file in `./docker/srcs/` directory and setup the following varia
 
 ## Execute with Docker
 ### build
-<p>Run <code>make -C docker</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker` in the root of this repository
+
+</p>
 
 ### up
-<p>Run <code>make -C docker up</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker up` in the root of this repository
+
+</p>
 
 ### down
-<p>Run <code>make -C docker down</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker down` in the root of this repository
+
+</p>
 
 ### clean
-<p>Run <code>make -C docker clean</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker clean` in the root of this repository
+
+</p>
 
 ### fclean
-<p>Run <code>make -C docker fclean</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker fclean` in the root of this repository
+
+</p>
 
 ### re
-<p>Run <code>make -C docker re</code> in the root of this repository</p>
+<p>
+
+Run `make -C docker re` in the root of this repository
+
+</p>
 
 ### run
-<p>Open your browser and type <code>http://localhost:&lt;port&gt;</code>
+<p>
 
-> Note that <code>&lt;port&gt;</code> must be the <code>$PORT</code> value you setted up in <code>.env</code> file
+Open your browser and type `http://localhost:<port>`
+> Note that `<port>` must be the `PORT` value you setted up in `.env` file
 
 </p>
 
 ## Execute in host machine
 ### setup
+<p>
+
 Run `./setup.sh` in the root of this repository
+
+</p>
+
 ### clean
+<p>
+
 Run `./clean.sh` in the root of this repository
+
+</p>
+
 ### info
+<p>
+
 Run `./info.sh` in the root of this repository
+
+</p>
+
 ### run
-Go to `./docker/srcs/requirements/website/tools/website` directory<br>
-Run `python manage.py runserver 0.0.0.0:<port>`<br>
-Open your browser and type `http://localhost:<port>`<br>
+<p>
+
+Go to `./docker/srcs/requirements/website/tools/website` directory
+
+</p>
+Run `python manage.py runserver 0.0.0.0:<port>`
+
+</p>
+
+Open your browser and type `http://localhost:<port>`
 > Note that `<port>` must be the port you want to allow to run this project
+
+</p>
