@@ -14,34 +14,21 @@ Welcome to the repository! This document provides comprehensive instructions for
 
 <p>Before running the project, ensure you have the necessary dependencies installed by executing the following commands in your terminal:</p>
 
-1. Update your package list:
-
-`sudo apt update`
+1. Update your package list: `sudo apt update`
+2. Install Docker using Snap: `sudo snap install docker`
+3. Install this required packages: `sudo apt install -y make python3 python3-pip python-is-python3`
+4. Install this Python dependencies: `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt`
 
 <p>
 
-Execute `sudo snap install docker` in your terminal
+Additionally, create a `.env` file in the `./docker/srcs/` directory with the following variables:
 
 </p>
-<p>
 
-Execute `sudo apt install -y make python3 python3-pip python-is-python3` in your terminal
-
-</p>
-<p>
-
-Execute `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal
-
-</p>
-<p>
-
-Create a `.env` file in `./docker/srcs/` directory and setup the following variables:
-- `PORT`
-- `DJANGO_SUPERUSER_USERNAME`
-- `DJANGO_SUPERUSER_EMAIL`
-- `DJANGO_SUPERUSER_PASSWORD`
-
-</p>
+`PORT`
+`DJANGO_SUPERUSER_USERNAME`
+`DJANGO_SUPERUSER_EMAIL`
+`DJANGO_SUPERUSER_PASSWORD`
 
 ## Execute with Docker
 ### build
