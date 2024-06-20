@@ -18,16 +18,28 @@ Run `git clone https://github.com/davidmonteiro03/website.git` in your terminal
 Run `sudo apt update` in your terminal
 
 </p>
+<p>
 
-<p>Run <code>sudo snap install docker</code> in your terminal</p>
-<p>Run <code>sudo apt install -y make python3 python3-pip python-is-python3</code> in your terminal</p>
-<p>Run <code>pip install -r ./docker/srcs/requirements/website/tools/requirements.txt</code> in your terminal</p>
-<p>Create a <code>.env</code> file in <code>./docker/srcs/</code> directory and setup the following variables:
+Run `sudo snap install docker` in your terminal
 
-- <code>PORT</code>
-- <code>DJANGO_SUPERUSER_USERNAME</code>
-- <code>DJANGO_SUPERUSER_EMAIL</code>
-- <code>DJANGO_SUPERUSER_PASSWORD</code>
+</p>
+<p>
+
+Run `sudo apt install -y make python3 python3-pip python-is-python3` in your terminal
+
+</p>
+<p>
+
+Run `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal
+
+</p>
+<p>
+
+Create a `.env` file in `./docker/srcs/` directory and setup the following variables:
+- `PORT`
+- `DJANGO_SUPERUSER_USERNAME`
+- `DJANGO_SUPERUSER_EMAIL`
+- `DJANGO_SUPERUSER_PASSWORD`
 
 </p>
 
