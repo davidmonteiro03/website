@@ -1,5 +1,5 @@
 ## Development status
-<p>This project is actively being developed. We are currently working on improving performance and adding new features to enhance user experience. Feel free to check out our recent commits and join the discussion in the issues section!
+<p>This project is actively being developed. We are currently working on improving performance and adding new features to enhance user experience. Feel free to check out our recent commits and join the discussion in the issues section!</p>
 
 ## Download this repository
 <p>Run <code>git clone https://github.com/davidmonteiro03/website.git</code> in your terminal</p>
