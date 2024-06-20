@@ -15,10 +15,10 @@
 2. Install Docker using Snap:
    - `sudo snap install docker`
 
-3. Install this required packages:
+3. Install the required packages:
    - `sudo apt install -y make python3 python3-pip python-is-python3`
 
-4. Install this Python dependencies:
+4. Install the Python dependencies:
    - `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt`
 
 5. Create a `.env` file in the `./docker/srcs/` directory with the following variables:
