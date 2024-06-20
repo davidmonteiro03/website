@@ -1,7 +1,7 @@
 ## About
 <p>
 
-Some information about this... :)
+Welcome to the repository! This document provides comprehensive instructions for setting up, building, and running the project both via Docker and directly on your host machine.
 
 </p>
 
