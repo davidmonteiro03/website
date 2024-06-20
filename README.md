@@ -1,17 +1,12 @@
 ## About
-<p>
+<p>Something to describe the project (I don't know yet how to describe this).</p>
 
-Welcome to the repository! This document provides comprehensive instructions for setting up, building, and running the project both via Docker and directly on your host machine.
-
-</p>
-
-## Download this repository
+## Repository Download
 <p>To clone this repository, execute the following command in your terminal:</p>
 
 `git clone https://github.com/davidmonteiro03/website.git`
 
-## Dependences
-
+## Dependencies
 <p>Before running the project, ensure you have the necessary dependencies installed by executing the following commands in your terminal:</p>
 
 1. Update your package list:
@@ -28,54 +23,50 @@ Welcome to the repository! This document provides comprehensive instructions for
    - `DJANGO_SUPERUSER_EMAIL`
    - `DJANGO_SUPERUSER_PASSWORD`
 
-## Execute with Docker
-### build
+## Running with Docker
+### All
+<p>To build the Docker environment, run the following command from the root of the repository:</p>
+
+`make -C docker`
+
+### Build
+<p>To build the Docker environment, run the following command from the root of the repository:</p>
+
+`make -C docker build`
+
+### Up
+<p>To start the Docker containers, execute:</p>
+
+`make -C docker up`
+
+### Down
+<p>To stop the Docker containers, execute:</p>
+
+`make -C docker down`
+
+### Clean
+<p>To clean up intermediate files and containers, execute:</p>
+
+`make -C docker clean`
+
+### Full Clean
+<p>To perform a thorough clean-up, removing all Docker artifacts, execute:</p>
+
+`make -C docker fclean`
+
+### Rebuild
+<p>To rebuild the Docker environment from scratch, execute:</p>
+
+`make -C docker rebuild`
+
+### Running the Application
+<p>After starting the Docker containers, open your browser and navigate to:</p>
+
+`http://localhost:<port>`
+
 <p>
 
-Execute `make -C docker` in the root of this repository
-
-</p>
-
-### up
-<p>
-
-Execute `make -C docker up` in the root of this repository
-
-</p>
-
-### down
-<p>
-
-Execute `make -C docker down` in the root of this repository
-
-</p>
-
-### clean
-<p>
-
-Execute `make -C docker clean` in the root of this repository
-
-</p>
-
-### fclean
-<p>
-
-Execute `make -C docker fclean` in the root of this repository
-
-</p>
-
-### re
-<p>
-
-Execute `make -C docker re` in the root of this repository
-
-</p>
-
-### run
-<p>
-
-Open your browser and type `http://localhost:<port>`
-> Note that `<port>` must be the `PORT` value you setted up in `.env` file
+Ensure that `<port>` matches the `PORT` value specified in your `.env` file.
 
 </p>
 

@@ -6,14 +6,17 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/17 09:01:13 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/06/20 20:03:54 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all: up
+all: build up
+
+build:
+	@docker-compose -f ./srcs/docker-compose.yml build
 
 up:
-	@docker-compose -f ./srcs/docker-compose.yml up --build -d
+	@docker-compose -f ./srcs/docker-compose.yml up
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down
@@ -25,6 +28,6 @@ fclean: clean
 	-@docker images -qa | xargs -r docker rmi 2>&1
 	@docker system prune -af
 
-re: clean up
+rebuild: fclean build
 
 .PHONY: all up down clean fclean re
