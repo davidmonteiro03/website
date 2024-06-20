@@ -16,9 +16,12 @@ Welcome to the repository! This document provides comprehensive instructions for
 
 1. Update your package list:
    - `sudo apt update`
-2. Install Docker using Snap: `sudo snap install docker`
-3. Install this required packages: `sudo apt install -y make python3 python3-pip python-is-python3`
-4. Install this Python dependencies: `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt`
+2. Install Docker using Snap:
+   - `sudo snap install docker`
+3. Install this required packages:
+   - `sudo apt install -y make python3 python3-pip python-is-python3`
+4. Install this Python dependencies:
+   - `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt`
 
 <p>
 
