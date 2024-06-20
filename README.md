@@ -5,7 +5,7 @@
 Run `git clone https://github.com/davidmonteiro03/website.git` in your terminal
 
 ## Dependences
-Run `sudo apt update` in your terminal<br>
+Run `sudo apt update` in your terminal
 Run `sudo snap install docker` in your terminal<br>
 Run `sudo apt install -y make python3 python3-pip python-is-python3` in your terminal<br>
 Run `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt` in your terminal<br>
