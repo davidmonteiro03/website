@@ -1,35 +1,37 @@
 # import Python modules
-import http # HTTP status codes
 import json # JSON encoder and decoder
-import requests # HTTP requests
+import http # HTTP status codes
+import os # Miscellaneous operating system interfaces
 
 # import Django modules
-from django.views.decorators.http import require_GET # Require GET method
 from django.http import JsonResponse # JSON response
+from django.template import loader # Load a template
+from django.views.decorators.http import require_POST # Require POST method
+from django.conf import settings # Django settings
 
-# import parse
-from . import parse # parse module
-
-# import models
-from .models import ApiLink # ApiLink model
-
-# Function to get Liga Portugal standings
+# Function to render template
 # :param request: HTTP request
-# :return: JSON response
-@require_GET # Require GET method
-def ligaportugal(request):
-	find_link = ApiLink.objects.filter(link='ligaportugal').first() # Find Liga Portugal link
-	if not find_link: # Check if link does not exist
-		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
-	response = requests.get('https://www.ligaportugal.pt/pt/liga/standings/1') # Send GET request
-	try: # Try to parse response
-		in_data = json.loads(response.text) # Load JSON data from response
-		out_data = parse.ligaportugal(in_data) # Parse Liga Portugal data
-		if not out_data: # Check if data does not exist
-			raise Exception # Raise exception
+# :return: HTTP response
+@require_POST # Require POST method
+def main(request):
+	template_path = os.path.join(settings.BASE_DIR, 'api', 'templates') # Get template path from settings
+	json_data = {} # Initialize JSON data
+	if request.body == None or request.body == b'': # Check if request body is empty
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	body = json.loads(request.body) # Load JSON data from request body
+	fields = ['type', 'file'] # Initialize fields
+	if set(fields) != set(body.keys()): # Check if fields are not in body
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	valid_types = ['navbar', 'content', 'modal', 'footer'] # Initialize valid types
+	if body['type'] not in valid_types: # Check if type is not in valid types
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	if not body['file']: # Check if file is empty
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	try: # Try to render template
+		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
-			'content': out_data # Content data
+			'html': html # HTML data
 		}, status=200) # Return success response
 	except: # Catch exceptions
-		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response

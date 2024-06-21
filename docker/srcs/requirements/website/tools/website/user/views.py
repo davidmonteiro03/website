@@ -1,6 +1,7 @@
 # import Python modules
 import http # HTTP status codes
 import json # JSON encoder and decoder
+import os # Miscellaneous operating system interfaces
 from rest_framework_simplejwt.tokens import RefreshToken # Refresh token
 
 # import Django modules
@@ -9,6 +10,10 @@ from django.http import JsonResponse # JSON response
 from django.db.models import Q # Django query
 from django.contrib.auth.hashers import check_password # Check password
 from django.core.files.storage import default_storage # Default storage
+from django.template import loader # Template loader
+from django.forms.models import model_to_dict # Convert a model instance to a dictionary
+from django.db.models import Model # Django model
+from django.conf import settings # Django settings
 
 # import parse
 from . import parse
@@ -16,6 +21,58 @@ from . import parse
 # import models
 from .models import User # User model
 from .models import Session # Session model
+
+# Function to convert a model instance to a JSON object
+# :param model: Django model instance
+# :return: JSON object
+def model_to_json(model: Model):
+	target_dict = model_to_dict(model) # Convert model instance to dictionary
+	result = {} # Initialize result dictionary
+	for key in target_dict.keys(): # Iterate over dictionary keys
+		result[key] = target_dict[key] # Add key-value pair to result dictionary
+	if 'id' in result: # Check if 'id' key exists in result dictionary
+		del result['id'] # Delete 'id' key from result dictionary
+	if 'password' in result: # Check if 'password' key exists in result dictionary
+		del result['password'] # Delete 'password' key from result dictionary
+	return result # Return result dictionary
+
+# Function to main
+# :param request: HTTP request
+# :return: JSON response
+@require_POST # Require POST method
+def main(request):
+	cookies = {} # Empty dictionary
+	for key in request.COOKIES: # Iterate over cookies
+		cookies[key] = request.COOKIES[key] # Add cookies to dictionary
+	if cookies == {} or 'token' not in cookies.keys(): # Check if cookies is empty or token is not in cookies
+		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401) # Return error
+	template_path = os.path.join(settings.BASE_DIR, 'user', 'templates') # Get template path from settings
+	token = request.COOKIES.get('token') # Get token from cookies
+	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
+	json_data = {} # Initialize JSON data
+	if not token or not session: # Check if token and session exist
+		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401) # Return error
+	json_data['userdata'] = model_to_json(session.user) # Convert user model to JSON object
+	json_data['MEDIA_URL'] = settings.MEDIA_URL # Get media URL from settings
+	if request.body == None or request.body == b'': # Check if request body is empty
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	body = json.loads(request.body) # Load JSON data from request body
+	fields = ['type', 'file'] # Initialize fields
+	if set(fields) != set(body.keys()): # Check if fields are not in body
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	valid_types = ['navbar', 'content', 'modal', 'footer'] # Initialize valid types
+	if body['type'] not in valid_types: # Check if type is not in valid types
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	if not body['file']: # Check if file is empty
+		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
+	try: # Try to render template
+		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+		return JsonResponse({ # Return JSON response
+			'success': http.HTTPStatus(200).phrase, # Success message
+			'html': html # HTML data
+		}, status=200) # Return success response
+	except: # Catch exceptions
+		return JsonResponse({'error': http.HTTPStatus(404).phrase}, status=404) # Return error response
 
 # Function to sign up
 # :param request: HTTP request

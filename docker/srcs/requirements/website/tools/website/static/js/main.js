@@ -1,51 +1,47 @@
 let navbar = null;
-let app = null;
+let content = null;
 let modal = null;
 let footer = null;
+
+getCookie = (name) => {
+	let cookie = document.cookie.split('; ').find(row => row.startsWith(name));
+	if (cookie === undefined || cookie === null || cookie === '') return '';
+	return cookie.split('=')[1];
+};
 
 document.addEventListener('DOMContentLoaded', async (event) => {
 	event.preventDefault();
 	navbar = document.getElementById('navbar');
-	app = document.getElementById('app');
+	content = document.getElementById('content');
 	modal = document.getElementById('modal');
 	footer = document.getElementById('footer');
 
+	let currentApp = '/';
 	let currentPage = 'index';
 
-	async function changePage(page = 'index', api_data = null) {
-		if (await updatePageContent(page, api_data) === false) return;
-		if (currentPage === page) return;
+	currentApp = getCookie('token') === '' ? '/' : '/user/';
+
+	changePage = async (event, app, page, replace) => {
+		event.preventDefault();
+		if (await updatePageContent(app, page) === false) return history.replaceState({ app: '/', page: 'index' }, null, '/');
+		if (currentApp === app && currentPage === page) return;
+		currentApp = app;
 		currentPage = page;
 		if (currentPage === 'index') {
-			history.pushState({ page: currentPage, api_data: api_data }, null, '/');
-		} else {
-			history.pushState({ page: currentPage, api_data: api_data }, null, `/${currentPage}/`);
+			if (replace === true) return history.replaceState({ app: currentApp, page: currentPage }, null, currentApp);
+			return history.pushState({ app: currentApp, page: currentPage }, null, currentApp);
 		}
-	}
-
-	window.changePage = async (event, page = 'index', api_data = null) => {
-		event.preventDefault();
-		await changePage(page, api_data);
+		if (replace === true) return history.replaceState({ app: currentApp, page: currentPage }, null, `${currentApp}${currentPage}/`);
+		return history.pushState({ app: currentApp, page: currentPage }, null, `${currentApp}${currentPage}/`);
 	};
 
 	window.onpopstate = async (event) => {
-		if (event.state === null) {
-			currentPage = 'index';
-			if (await updatePageContent() === false) return;
-			history.replaceState({ page: currentPage, api_data: null }, null, '/');
-		} else {
-			if (event.state.page === '/' || event.state.page === 'index') {
-				currentPage = 'index';
-				if (await updatePageContent() === false) return;
-				history.replaceState({ page: currentPage, api_data: null }, null, '/');
-			} else {
-				if (event.state.page === currentPage) return;
-				currentPage = event.state.page;
-				if (await updatePageContent(currentPage, event.state.api_data) === false) return;
-				history.replaceState({ page: currentPage, api_data: event.state.api_data }, null, `/${currentPage}/`);
-			}
-		}
+		event.preventDefault();
+		if (event.state === null) return changePage(event, currentApp, 'index', true);
+		if (event.state.page === '/' || event.state.page === 'index') return changePage(event, event.state.app, 'index', true);
+		return changePage(event, event.state.app, event.state.page, true);
 	};
 
-	await updatePageContent();
+	await updatePageContent(currentApp, currentPage);
+	history.replaceState({ app: currentApp, page: currentPage }, null, currentApp);
 });

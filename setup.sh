@@ -12,19 +12,8 @@
 
 #!/bin/sh
 
-< ./docker/srcs/.env
-if [ $? -ne 0 ]; then
-	echo "You need to create a .env file in the ./docker/srcs folder"
-	exit 1
-fi
 cd ./docker/srcs/requirements/website/tools/website
-if [ -f ../../../../.env ]; then
-	export $(cat ../../../../.env | xargs)
-	output="from django.contrib.auth.models import User\n\
-User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME','$DJANGO_SUPERUSER_EMAIL','$DJANGO_SUPERUSER_PASSWORD')"
-fi
-python3 manage.py makemigrations api authentication
+python3 manage.py makemigrations api user
 python3 manage.py migrate
-echo $output | python3 manage.py shell
 python3 manage.py collectstatic --noinput
 cd ../../../../../..

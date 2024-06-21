@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" onclick="changePage(event, '/user/', 'index', false)">
+      {% load static %}
+      <img src="{% static 'images/favicon.ico' %}" width="40" height="40" class="d-inline-block object-fit-cover" alt="icon" loading="lazy" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <button onclick="changePage(event, '/user/', 'profilepage', false)" class="btn btn-primary ft_button mt-1 mt-sm-0 w-100">Profile</button>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item mt-2 mt-sm-0">
+          <button class="btn btn-primary ft_button w-100" onclick="signOut(event)">Sign Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

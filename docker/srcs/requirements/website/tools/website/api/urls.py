@@ -1,10 +1,10 @@
 # import Django modules
-from django.urls import path # URL paths
+from django.urls import path # Django path
 
 # import views
 from . import views
 
 # urlpatterns
 urlpatterns = [
-	path('ligaportugal/', views.ligaportugal, name='ligaportugal'), # Liga Portugal
+	path('', views.main, name='main'), # Main
 ]

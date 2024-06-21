@@ -1,4 +1,4 @@
-async function signIn(event) {
+signIn = async (event) => {
 	event.preventDefault();
 	if (document.cookie === '') return;
 	let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
@@ -8,7 +8,7 @@ async function signIn(event) {
 	const form_data = new FormData(event.target);
 	const json_data = {};
 	form_data.forEach((value, key) => { json_data[key] = value; });
-	const response = await fetch('/auth/signin/', {
+	const response = await fetch('/user/signin/', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -18,6 +18,5 @@ async function signIn(event) {
 	});
 	if (!response.ok) return;
 	$('#signinFormModal').modal('hide');
-	changePage(event);
-	document.title = "Home";
-}
+	changePage(event, '/user/', 'index', true);
+};

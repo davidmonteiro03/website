@@ -1,10 +1,10 @@
-async function signUpFormHelper(input) {
+signUpFormHelper = async (input) => {
 	let id = input.id;
 	let name = input.name;
 	let value = input.value;
 	let error = null;
 
-	function updateSignUpForm() {
+	updateSignUpForm = () => {
 		if (value === '') {
 			input.classList.remove('is-valid');
 			input.classList.remove('is-invalid');
@@ -20,9 +20,9 @@ async function signUpFormHelper(input) {
 		input.classList.remove('is-valid');
 		input.classList.add('is-invalid');
 		document.getElementById(id + '_feedback').innerHTML = error;
-	}
+	};
 
-	async function searchClient() {
+	searchClient = async () => {
 		if (document.cookie === '') return;
 		let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
 		if (tmp === null || tmp === '') return;
@@ -30,7 +30,7 @@ async function signUpFormHelper(input) {
 		if (csrftoken === null || csrftoken === '') return;
 		const data = {};
 		data[name] = value;
-		const response = await fetch('/auth/getuser/', {
+		const response = await fetch('/user/getuser/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -40,23 +40,23 @@ async function signUpFormHelper(input) {
 		});
 		if (response.ok) return;
 		error = `${name.charAt(0).toUpperCase() + name.slice(1)} already exists.`;
-	}
+	};
 
-	function namesHelper() {
+	namesHelper = () => {
 		if (value.length < 3) return error = "Name must be at least 3 characters long.";
 		if (value.length > 32) return error = "Name must be at most 32 characters long.";
 		if (!value.match(/^[^\p{P}\p{S}\p{N}\p{C}\p{Z}]+$/gu)) return error = "Name must contain only letters.";
-	}
+	};
 
-	async function usernameHelper() {
+	usernameHelper = async () => {
 		if (value.length < 3) return error = "Username must be at least 3 characters long.";
 		if (value.length > 32) return error = "Username must be at most 32 characters long.";
 		if (!value.match(/^[a-z0-9_.-]+$/)) return error = "Username must contain only lowercase letters, numbers, and the characters '.', '_', and '-'.";
 		if (!value[0].match(/[a-z]/)) return error = "Username must start with a lowercase letter.";
 		await searchClient();
-	}
+	};
 
-	async function emailHelper() {
+	emailHelper = async () => {
 		if (value.length < 5) return error = "Email must be at least 5 characters long.";
 		if (value.length > 97) return error = "Email must be at most 97 characters long.";
 		let main_values = ft_split(value, '@');
@@ -77,9 +77,9 @@ async function signUpFormHelper(input) {
 		if (main_values[1].length > 64) return error = "Email must contain a domain of at most 64 characters long.";
 		for (let i = 0; i < domain_count; i++) if (!domain_values[i].match(/^[a-z0-9]+$/)) return error = "Email must contain a domain with only lowercase letters and numbers.";
 		await searchClient();
-	}
+	};
 
-	function passwordHelper() {
+	passwordHelper = () => {
 		if (value.length < 8) return error = "Password must be at least 8 characters long.";
 		if (value.length > 32) return error = "Password must be at most 32 characters long.";
 		if (ft_strschchr(value, " \t\n\r\v\f")) return error = "Password must not contain any whitespace characters.";
@@ -87,9 +87,9 @@ async function signUpFormHelper(input) {
 		if (!ft_strschchr(value, "abcdefghijklmnopqrstuvwxyz")) return error = "Password must contain at least one lowercase letter.";
 		if (!ft_strschchr(value, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")) return error = "Password must contain at least one uppercase letter.";
 		if (!ft_strschchr(value, "!@#$%^&*()_+-=[]{}|;:,.<>?/")) return error = "Password must contain at least one special character.";
-	}
+	};
 
-	function profilephotoHelper() {
+	profilephotoHelper = () => {
 		let file = input.files[0];
 		if (file.type.split('/')[0] !== 'image') {
 			if (document.getElementById("show-foto").hasChildNodes())
@@ -99,7 +99,7 @@ async function signUpFormHelper(input) {
 			return error = "Profile photo must be an image.";
 		}
 		const filein = new FileReader();
-		filein.onload = function (value) {
+		filein.onload = (value) => {
 			if (document.getElementById("show-foto").hasChildNodes())
 				document.getElementById("show-foto").removeChild(document.getElementById("show-foto").firstChild);
 			const image = document.createElement('img');
@@ -113,7 +113,7 @@ async function signUpFormHelper(input) {
 			document.getElementById('show-foto').appendChild(image);
 		}
 		filein.readAsDataURL(file);
-	}
+	};
 
 	switch (name) {
 		case 'fname':
@@ -137,9 +137,9 @@ async function signUpFormHelper(input) {
 	}
 
 	updateSignUpForm();
-}
+};
 
-async function signUp(event) {
+signUp = async (event) => {
 	event.preventDefault();
 	if (document.cookie === '') return;
 	let tmp = document.cookie.split('; ').find(row => row.startsWith('csrftoken'));
@@ -147,13 +147,12 @@ async function signUp(event) {
 	let csrftoken = tmp.split('=')[1];
 	if (csrftoken === null || csrftoken === '') return;
 	const form_data = new FormData(event.target);
-	const response = await fetch('/auth/signup/', {
+	const response = await fetch('/user/signup/', {
 		method: 'POST',
 		headers: { 'X-CSRFToken': csrftoken },
 		body: form_data
 	});
 	if (!response.ok) return;
 	$('#signupFormModal').modal('hide');
-	changePage(event);
-	document.title = "Home";
-}
+	changePage(event, '/user/', 'index', true);
+};
