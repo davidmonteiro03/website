@@ -8,6 +8,7 @@ from django.shortcuts import render # Render a template
 from django.http import JsonResponse # JSON response
 from django.template import loader # Load a template
 from django.forms.models import model_to_dict # Convert a model instance to a dictionary
+from django.views.decorators.http import require_POST # Require POST method
 from django.db.models import Model # Django model
 from django.conf import settings # Django settings
 
@@ -27,6 +28,25 @@ def model_to_json(model: Model):
 	if 'password' in result: # Check if 'password' key exists in result dictionary
 		del result['password'] # Delete 'password' key from result dictionary
 	return result # Return result dictionary
+
+# Function to render the components page
+# :param request: HTTP request
+# :return: HTTP response
+@require_POST # Require POST method
+def server_data(request):
+	data = { # Initialize data dictionary
+		'components': { # Components dictionary
+			'/': ['navbar', 'modal', 'footer', 'index'], # Components for '/'
+			'/user/': ['navbar', 'modal', 'footer', 'index', 'profilepage'], # Components for '/user/'
+			'/api/': ['navbar', 'modal', 'footer', 'index'], # Components for '/api/'
+		}, # Components dictionary
+		'selected': '/' # Selected path
+	} # Data dictionary
+	token = request.COOKIES.get('token') # Get token from cookies
+	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
+	if token and session: # Check if token and session exist
+		data['selected'] = '/user/' # Set selected path to '/user/'
+	return JsonResponse(data, status=200)
 
 # Function to render the main page
 # :param request: HTTP request

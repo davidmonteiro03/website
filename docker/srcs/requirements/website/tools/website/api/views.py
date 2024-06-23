@@ -9,11 +9,18 @@ from django.template import loader # Load a template
 from django.views.decorators.http import require_POST # Require POST method
 from django.conf import settings # Django settings
 
+# import models
+from user.models import Session # Session model
+
 # Function to render template
 # :param request: HTTP request
 # :return: HTTP response
 @require_POST # Require POST method
 def main(request):
+	token = request.COOKIES.get('token') # Get token from cookies
+	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
+	private_path = os.path.join(settings.BASE_DIR, 'user', 'templates') # Get user path from settings
+	public_path = os.path.join(settings.BASE_DIR, 'front', 'templates') # Get user path from settings
 	template_path = os.path.join(settings.BASE_DIR, 'api', 'templates') # Get template path from settings
 	json_data = {} # Initialize JSON data
 	if request.body == None or request.body == b'': # Check if request body is empty
@@ -28,7 +35,13 @@ def main(request):
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	try: # Try to render template
-		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+		if body['type'] == 'navbar':
+			if token and session:
+				html = loader.render_to_string(os.path.join(private_path, f'{body["file"]}.html'), context=json_data)
+			else:
+				html = loader.render_to_string(os.path.join(public_path, f'{body["file"]}.html'), context=json_data)
+		else:
+			html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data

@@ -10,5 +10,5 @@ signOut = async (event) => {
 		headers: { 'X-CSRFToken': csrftoken }
 	});
 	if (!response.ok) return;
-	changePage(event, '/', 'index', true);
+	window.location.href = '/';
 };

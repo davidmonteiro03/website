@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" onclick="changePage(event, '/user/', 'index', false)">
+    <a class="navbar-brand" onclick="changePage(event, '/user/', 'index')">
       {% load static %}
       <img src="{% static 'images/favicon.ico' %}" width="40" height="40" class="d-inline-block object-fit-cover" alt="icon" loading="lazy" />
     </a>
@@ -8,7 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <button onclick="changePage(event, '/user/', 'profilepage', false)" class="btn btn-primary ft_button mt-1 mt-sm-0 w-100">Profile</button>
+          <button onclick="changePage(event, '/user/', 'profilepage')" class="btn btn-primary ft_button mt-1 mt-sm-0 w-100">Profile</button>
+        </li>
+        <li class="nav-item">
+          <button onclick="changePage(event, '/api/', 'index')" class="btn btn-primary ft_button mt-2 mt-sm-0 ms-sm-2 w-100">API</button>
         </li>
       </ul>
       <ul class="navbar-nav">

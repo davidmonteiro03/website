@@ -18,5 +18,5 @@ signIn = async (event) => {
 	});
 	if (!response.ok) return;
 	$('#signinFormModal').modal('hide');
-	changePage(event, '/user/', 'index', true);
+	window.location.href = '/';
 };

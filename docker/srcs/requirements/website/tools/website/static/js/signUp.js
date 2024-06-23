@@ -154,5 +154,5 @@ signUp = async (event) => {
 	});
 	if (!response.ok) return;
 	$('#signupFormModal').modal('hide');
-	changePage(event, '/user/', 'index', true);
+	window.location.href = '/';
 };

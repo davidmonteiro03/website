@@ -7,4 +7,5 @@ from . import views
 # urlpatterns
 urlpatterns = [
 	path('', views.main, name='main'), # Main
+	path('server-data/', views.server_data, name='server_data'), # Components
 ]
