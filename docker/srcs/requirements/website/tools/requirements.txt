@@ -1,5 +1,6 @@
 django
 djangorestframework
 djangorestframework-simplejwt
+django-sslserver
 pillow
 requests
