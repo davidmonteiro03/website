@@ -35,7 +35,7 @@ def main(request):
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	try: # Try to render template
-		if body['type'] == 'navbar': # Check if type is navbar
+		if body['type'] == 'navbar' or body['type'] == 'modal': # Check if type is navbar or modal
 			if token and session: # Check if token and session exist
 				html = loader.render_to_string(os.path.join(private_path, f'{body["file"]}.html'), context=json_data) # Render private template
 			else: # Otherwise
