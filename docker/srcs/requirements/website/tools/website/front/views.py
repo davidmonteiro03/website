@@ -13,7 +13,11 @@ from django.db.models import Model # Django model
 from django.conf import settings # Django settings
 
 # import models
+from user.models import User # User model
 from user.models import Session # Session model
+
+# import utils
+from . import utils
 
 # Function to convert a model instance to a JSON object
 # :param model: Django model instance
@@ -34,19 +38,22 @@ def model_to_json(model: Model):
 # :return: HTTP response
 @require_POST # Require POST method
 def server_data(request):
+	apps = { # Initialize apps dictionary
+		'/': 'front', # Frontend app
+		'/user/': 'user', # User app
+		'/api/': 'api', # API app
+	} # Apps dictionary
 	data = { # Initialize data dictionary
-		'components': { # Components dictionary
-			'/': ['navbar', 'modal', 'footer', 'index'], # Components for '/'
-			'/user/': ['navbar', 'modal', 'footer', 'index', 'profilepage'], # Components for '/user/'
-			'/api/': ['navbar', 'modal', 'footer', 'index'], # Components for '/api/'
-		}, # Components dictionary
+		'components': {}, # Components dictionary
 		'selected': '/' # Selected path
 	} # Data dictionary
+	for app in apps: # Iterate over apps
+		data['components'][app] = utils.get_templates(apps[app]) # Get templates for app
 	token = request.COOKIES.get('token') # Get token from cookies
 	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
 	if token and session: # Check if token and session exist
 		data['selected'] = '/user/' # Set selected path to '/user/'
-	return JsonResponse(data, status=200)
+	return JsonResponse(data, status=200) # Return JSON response
 
 # Function to render the main page
 # :param request: HTTP request

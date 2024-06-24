@@ -1,5 +1,8 @@
-from django.contrib import admin
-from .models import ApiLink
+# import Django modules
+from django.contrib import admin # Django administration
 
-# Register your models here.
-admin.site.register(ApiLink)
+# import models
+from .models import ApiLink # ApiLink model
+
+# Register models
+admin.site.register(ApiLink) # Register ApiLink model

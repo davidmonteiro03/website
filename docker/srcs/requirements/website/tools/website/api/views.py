@@ -19,8 +19,8 @@ from user.models import Session # Session model
 def main(request):
 	token = request.COOKIES.get('token') # Get token from cookies
 	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
-	private_path = os.path.join(settings.BASE_DIR, 'user', 'templates') # Get user path from settings
-	public_path = os.path.join(settings.BASE_DIR, 'front', 'templates') # Get user path from settings
+	private_path = os.path.join(settings.BASE_DIR, 'user', 'templates') # Get private path from settings
+	public_path = os.path.join(settings.BASE_DIR, 'front', 'templates') # Get public path from settings
 	template_path = os.path.join(settings.BASE_DIR, 'api', 'templates') # Get template path from settings
 	json_data = {} # Initialize JSON data
 	if request.body == None or request.body == b'': # Check if request body is empty
@@ -35,13 +35,13 @@ def main(request):
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	try: # Try to render template
-		if body['type'] == 'navbar':
-			if token and session:
-				html = loader.render_to_string(os.path.join(private_path, f'{body["file"]}.html'), context=json_data)
-			else:
-				html = loader.render_to_string(os.path.join(public_path, f'{body["file"]}.html'), context=json_data)
-		else:
-			html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+		if body['type'] == 'navbar': # Check if type is navbar
+			if token and session: # Check if token and session exist
+				html = loader.render_to_string(os.path.join(private_path, f'{body["file"]}.html'), context=json_data) # Render private template
+			else: # Otherwise
+				html = loader.render_to_string(os.path.join(public_path, f'{body["file"]}.html'), context=json_data) # Render public template
+		else: # Otherwise
+			html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data
