@@ -1,0 +1,36 @@
+{% if api_data.ligaportugal %}
+  <div class="table-responsive mx-2 mx-sm-3 mx-md-4 mx-lg-5 mt-3">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center text-white bg-transparent align-middle" width="5%">#</th>
+          <th class="text-start text-white bg-transparent align-middle">Team</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">P</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">M</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">W</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">D</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">L</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">GF</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">GA</th>
+          <th class="text-center text-white bg-transparent align-middle" width="7%">DG</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for club in api_data.ligaportugal %}
+          <tr>
+            <td class="text-center text-white bg-transparent align-middle" width="5%">{{ club.rank }}</td>
+            <td class="text-start text-white bg-transparent align-middle">{{ club.team }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.points }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.played }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.won }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.drawn }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.lost }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.goals_for }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.goals_against }}</td>
+            <td class="text-center text-white bg-transparent align-middle" width="7%">{{ club.goals_difference }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}

@@ -66,7 +66,7 @@ def main(request):
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	try: # Try to render template
-		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data

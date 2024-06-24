@@ -13,8 +13,8 @@ from django.db.models import Model # Django model
 from django.conf import settings # Django settings
 
 # import models
-from user.models import User # User model
 from user.models import Session # Session model
+from api.models import ApiLink # API link model
 
 # import utils
 from . import utils
@@ -27,6 +27,10 @@ def model_to_json(model: Model):
 	result = {} # Initialize result dictionary
 	for key in target_dict.keys(): # Iterate over dictionary keys
 		result[key] = target_dict[key] # Add key-value pair to result dictionary
+	try: # Try to get token from model
+		result['token'] = model.token # Add token to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
 	if 'id' in result: # Check if 'id' key exists in result dictionary
 		del result['id'] # Delete 'id' key from result dictionary
 	if 'password' in result: # Check if 'password' key exists in result dictionary
@@ -63,6 +67,8 @@ def main(request):
 	token = request.COOKIES.get('token') # Get token from cookies
 	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
 	json_data = {} # Initialize JSON data
+	api_links = ApiLink.objects.all() # Get all API links
+	json_data['api_links'] = [model_to_json(link) for link in api_links] # Convert API links to JSON objects
 	if token and session: # Check if token and session exist
 		json_data['userdata'] = model_to_json(session.user) # Convert user model to JSON object
 		json_data['MEDIA_URL'] = settings.MEDIA_URL # Get media URL from settings
@@ -75,6 +81,8 @@ def main(request):
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	body = json.loads(request.body) # Load JSON data from request body
 	fields = ['type', 'file'] # Initialize fields
+	if 'data' in body.keys() and body['data']:
+		fields.append('data')
 	if set(fields) != set(body.keys()): # Check if fields are not in body
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	valid_types = ['navbar', 'content', 'modal', 'footer'] # Initialize valid types
@@ -83,7 +91,7 @@ def main(request):
 	if not body['file']: # Check if file is empty
 		return JsonResponse({'error': http.HTTPStatus(400).phrase}, status=400) # Return error response
 	try: # Try to render template
-		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+		html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data
