@@ -1,0 +1,8 @@
+{% if api_data.league %}
+  <div class="mx-2 mx-sm-3 mx-md-4 mx-lg-5 mt-3">
+    <div class="ft_span mx-1 text-truncate">{{ api_data.league.name }}</div>
+    {% for team in api_data.league.teams %}
+      <iframe class="align-middle" style="border: none" width="80" height="80" srcdoc="{{ team }}"></iframe>
+    {% endfor %}
+  </div>
+{% endif %}

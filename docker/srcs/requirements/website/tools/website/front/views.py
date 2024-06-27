@@ -31,6 +31,10 @@ def model_to_json(model: Model):
 		result['token'] = model.token # Add token to result dictionary
 	except: # Catch exceptions
 		pass # Do nothing
+	try: # Try to get name from model
+		result['name'] = model.name # Add name to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
 	if 'id' in result: # Check if 'id' key exists in result dictionary
 		del result['id'] # Delete 'id' key from result dictionary
 	if 'password' in result: # Check if 'password' key exists in result dictionary

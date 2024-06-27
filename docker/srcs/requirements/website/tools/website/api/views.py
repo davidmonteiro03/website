@@ -30,6 +30,10 @@ def model_to_json(model: Model):
 		result['token'] = model.token # Add token to result dictionary
 	except: # Catch exceptions
 		pass # Do nothing
+	try: # Try to get name from model
+		result['name'] = model.name # Add name to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
 	if 'id' in result: # Check if 'id' key exists in result dictionary
 		del result['id'] # Delete 'id' key from result dictionary
 	return result # Return result dictionary
@@ -67,16 +71,19 @@ def main(request):
 			else: # Otherwise
 				html = loader.render_to_string(os.path.join(public_path, f'{body["file"]}.html'), context=json_data) # Render public template
 		else: # Otherwise
-			find_link = ApiLink.objects.filter(token=body['data']).first() # Find API link
-			if find_link and find_link.link in api.__dict__:
-				json_data['api_data'] = {}
-				json_data['api_data'][find_link.link] = api.__dict__[find_link.link]()
-				html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
-			else:
-				if body['type'] == 'app':
+			try: # Try to render template
+				find_link = ApiLink.objects.filter(token=body['data']['token']).first() # Find API link by token
+				json_data['api_data'] = {} # Initialize API data
+				json_data['api_data']['league'] = api.__dict__[find_link.link]() # Get API data
+				if body['type'] == 'content': # Check if type is content
+					html = loader.render_to_string(os.path.join(template_path, 'league.html'), context=json_data) # Render template
+				else: # Otherwise
+					html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
+			except: # Catch exceptions
+				if body['type'] == 'content': # Check if type is content
 					html = loader.render_to_string(os.path.join(template_path, 'index.html'), context=json_data) # Render template
-				else:
-					html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data)
+				else: # Otherwise
+					html = loader.render_to_string(os.path.join(template_path, f'{body["file"]}.html'), context=json_data) # Render template
 		return JsonResponse({ # Return JSON response
 			'success': http.HTTPStatus(200).phrase, # Success message
 			'html': html # HTML data

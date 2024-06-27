@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 			currentApp = '/';
 			currentPage = 'index';
 			document.title = 'AWESOME WEBSITE';
-			return history.replaceState({ app: '/', page: 'index', data: data }, null, '/');
+			return history.replaceState({ app: '/', page: 'index', data: null }, null, '/');
 		}
 		currentApp = app;
 		currentPage = page;
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 				return history.replaceState({ app: '/', page: 'index', data: null }, null, '/');
 			}
 			if (currentApp === event.state.app && currentPage === 'index') return;
-			if (await updatePageContent(event.state.app, 'index') === false) {
+			if (await updatePageContent(event.state.app, 'index', event.state.data) === false) {
 				currentApp = '/';
 				currentPage = 'index';
 				document.title = 'AWESOME WEBSITE';
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 			return history.replaceState({ app: '/', page: 'index', data: null }, null, '/');
 		}
 		if (currentApp === event.state.app && currentPage === event.state.page) return;
-		if (await updatePageContent(event.state.app, event.state.page) === false) {
+		if (await updatePageContent(event.state.app, event.state.page, event.state.data) === false) {
 			currentApp = '/';
 			currentPage = 'index';
 			document.title = 'AWESOME WEBSITE';

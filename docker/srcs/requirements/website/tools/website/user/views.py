@@ -21,6 +21,7 @@ from . import parse
 # import models
 from .models import User # User model
 from .models import Session # Session model
+from api.models import ApiLink # API link model
 
 # Function to convert a model instance to a JSON object
 # :param model: Django model instance
@@ -30,6 +31,14 @@ def model_to_json(model: Model):
 	result = {} # Initialize result dictionary
 	for key in target_dict.keys(): # Iterate over dictionary keys
 		result[key] = target_dict[key] # Add key-value pair to result dictionary
+	try: # Try to get token from model
+		result['token'] = model.token # Add token to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
+	try: # Try to get name from model
+		result['name'] = model.name # Add name to result dictionary
+	except: # Catch exceptions
+		pass # Do nothing
 	if 'id' in result: # Check if 'id' key exists in result dictionary
 		del result['id'] # Delete 'id' key from result dictionary
 	if 'password' in result: # Check if 'password' key exists in result dictionary
@@ -50,6 +59,8 @@ def main(request):
 	token = request.COOKIES.get('token') # Get token from cookies
 	session = Session.objects.select_related('user').filter(session_token=token).first() # Get session from token
 	json_data = {} # Initialize JSON data
+	api_links = ApiLink.objects.all() # Get all API links
+	json_data['api_links'] = [model_to_json(link) for link in api_links] # Convert API links to JSON objects
 	if not token or not session: # Check if token and session exist
 		return JsonResponse({'error': http.HTTPStatus(401).phrase}, status=401) # Return error
 	json_data['userdata'] = model_to_json(session.user) # Convert user model to JSON object
