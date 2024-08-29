@@ -6,7 +6,7 @@
 #    By: dcaetano <dcaetano@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 08:34:55 by dcaetano          #+#    #+#              #
-#    Updated: 2024/06/20 20:08:58 by dcaetano         ###   ########.fr        #
+#    Updated: 2024/08/29 15:18:27 by dcaetano         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,17 @@ up:
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down
 
+restart:
+	@docker-compose -f ./srcs/docker-compose.yml restart
+
 clean: down
-	-@docker volume ls -q | xargs -r docker volume rm -f 2>&1
+	@docker-compose -f ./srcs/docker-compose.yml down -v
 
 fclean: clean
-	-@docker images -qa | xargs -r docker rmi 2>&1
 	@docker system prune -af
 
 rerun: down up
 
-rebuild: fclean all
+re: fclean all
 
-.PHONY: all up down clean fclean re
+.PHONY: all up down restart clean fclean rerun re

@@ -2,7 +2,7 @@
 <p>Something to describe the project (I don't know yet how to describe this).</p>
 
 ## Repository Download
-<p>To clone this repository, execute the following command in your terminal:</p>
+<p>To clone this repository, run the following command in your terminal:</p>
 
 `git clone https://github.com/davidmonteiro03/website.git`
 
@@ -18,7 +18,7 @@
 3. Install the required packages:
    - `sudo apt install -y make python3 python3-pip python-is-python3`
 
-4. Install the Python dependencies:
+4. Install Python dependencies:
    - `pip install -r ./docker/srcs/requirements/website/tools/requirements.txt`
 
 5. Create a `.env` file in the `./docker/srcs/` directory with the following variables:
@@ -28,45 +28,50 @@
    - `DJANGO_SUPERUSER_PASSWORD`
 
 ## Running with Docker
-### All
-<p>To build and start the Docker environment, run the following command from the root of the repository:</p>
+### Build and Start
+<p>To build and start the Docker environment, run:</p>
 
 `make -C docker`
 
 ### Build
-<p>To build the Docker environment, run the following command from the root of the repository:</p>
+<p>To build the Docker images only, run:</p>
 
 `make -C docker build`
 
-### Up
-<p>To start the Docker containers, execute:</p>
+### Start
+<p>To start the Docker containers, run:</p>
 
 `make -C docker up`
 
-### Down
-<p>To stop the Docker containers, execute:</p>
+### Stop
+<p>To stop the Docker containers, run:</p>
 
 `make -C docker down`
 
+### Restart
+<p>To restart the Docker containers, run:</p>
+
+`make -C docker restart`
+
 ### Clean
-<p>To clean up intermediate files and containers, execute:</p>
+<p>To clean up containers and associated volumes, run:</p>
 
 `make -C docker clean`
 
 ### Full Clean
-<p>To perform a thorough clean-up, removing all Docker artifacts, execute:</p>
+<p>To perform a full cleanup, removing all Docker artifacts, run:</p>
 
 `make -C docker fclean`
 
-### Rerun
-<p>To restart the Docker environment after cleaning, execute:</p>
+### Re-run
+<p>To stop and start the Docker containers again, run:</p>
 
 `make -C docker rerun`
 
 ### Rebuild
-<p>To rebuild the Docker environment from scratch, execute:</p>
+<p>To rebuild the Docker environment from scratch, run:</p>
 
-`make -C docker rebuild`
+`make -C docker re`
 
 ### Running the Application
 <p>After starting the Docker containers, open your browser and navigate to:</p>
